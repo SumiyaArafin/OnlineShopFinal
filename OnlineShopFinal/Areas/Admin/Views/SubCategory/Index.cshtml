@@ -1,0 +1,174 @@
+﻿@*@model IEnumerable<OnlineShopFinal.Models.SubCategory>
+    @{
+        ViewData["Title"] = "Index";
+    }
+
+    <br />
+    <br />
+
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">SubCategory Types</h2>
+        </div>
+        <div class="col-6 text-right">
+            <a asp-action="Create" class="btn btn-info"><i class="fas fa-plus"></i>&nbsp; Add SubCategory</a>
+        </div>
+        <br />
+        <div class="col-12">
+            <table class="table table-striped border">
+                <tr class="table-info">
+                    <th>
+                        @Html.DisplayNameFor(m => m.Category)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(m => m.Name)
+                    </th>
+                    <th></th>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(m => item.Category.Name)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(m => item.Name)
+                        </td>
+                        <partial name="_ButtonPartial" model="item.Id" />
+
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>*@
+
+
+
+@model IEnumerable<OnlineShopFinal.Models.SubCategory>
+@{
+    ViewData["Title"] = "Index";
+
+}
+
+<br />
+<br />
+@*<script src="~/lib/jquery/dist/jquery.min.js"></script>*@
+<script src="~/lib/jquery/jquery.min.js"></script>
+@*<div class="row">
+    <div class="col-6">
+        <h2 class="text-info">SubCategory Types</h2>
+    </div>*@
+<div id="placeHolderHere"></div>
+<button type="button" class="btn btn-info" data-toggle="ajax-modal" data-target="#addEmployee" data-url="@Url.Action("Create")"><i class="fas fa-plus"></i>&nbsp; Add SubCategory</button>
+
+<br />
+<div class="col-6">
+    <table class="table table-striped border">
+        <tr class="table-info">
+            <th>
+                @Html.DisplayNameFor(m => m.Category)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(m => m.Name)
+            </th>
+            <th>Action</th>
+            
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(m => item.Category.Name)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(m => item.Name)
+                </td>
+                <td>
+                    <a asp-action="Edit" class="btn btn-primary" asp-route-id="@item.Id"><i class="fas fa-edit"></i></a>
+                    <a href="#" id="showModal" class="btn btn-danger" onclick="Confirm(@item.Id)"><i class="fas fa-trash"></i></a>
+                    @*<button type="button" class="btn btn-info" data-toggle="ajax-modal" data-target="#addEmployee" data-url="@Url.Action($"Edit/{item.Id}")">Edit</button>
+                        <a asp-action="Edit" class="btn btn-primary" asp-route-id="@item.Id" data-toggle="ajax-modal" data-target="#addEmployee"><i class="fas fa-edit"></i></a>*@
+                </td>
+
+
+            </tr>
+        }
+    </table>
+</div>
+
+
+<div class="modal fade" id="deleteModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title"> Confirm</h2>
+            </div>
+            <div class="modal-body">
+                <h4>Are You sure you want to delete this Category?</h4>
+            </div>
+            <div class="modal-footer">
+                <div class="btn-group">
+                    <a href="#" id="btnDelete" class="btn btn-danger mr-3">Delete</a>
+                    <a href="#" id="btnCancelConfirm" class="btn btn-primary">Cancel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input type="hidden" id="supplierId" />
+
+<script>
+    $(document).ready(function () {
+        //$("#btnSave").click(function () {
+        //    var supplierFormData = $("#supplierForm").serialize();
+        //    $.ajax({
+        //        type: "POST",
+        //        url: "/Admin/Category/Create",
+        //        data: supplierFormData,
+        //        success: function () {
+        //            window.location.href = "/Admin/Category/Index";
+        //        }
+        //    })
+        //})
+
+        //$("#btnCancel").click(function () {
+        //    window.location.href = "/Admin/Category/Index";
+        //})
+
+        $("#btnCancelConfirm").click(function () {
+            window.location.href = "/Admin/SubCategory/Index";
+        })
+        $("#btnDelete").click(function () {
+            var _id = $("#supplierId").val();
+            $.ajax({
+                type: "POST",
+                url: "/Admin/SubCategory/Delete",
+                data: { id: _id },
+                success: function (result) {
+                    if (result) {
+                        $("#deleteModal").modal('hide');
+                        $("#supplierId").val(null);
+                        window.location.href = "/Admin/SubCategory/Index";
+                    } else {
+                        alert("Something went wrong while processing your request");
+                    }
+
+                }
+            });
+        });
+
+
+    })
+
+    var Confirm = function (id) {
+        $("#supplierId").val(id);
+        $("#deleteModal").modal('show');
+
+    }
+
+</script>

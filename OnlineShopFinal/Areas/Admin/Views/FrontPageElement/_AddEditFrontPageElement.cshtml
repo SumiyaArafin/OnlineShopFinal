@@ -1,0 +1,110 @@
+﻿@*@model OnlineShopFinal.Models.FrontPageElement
+    @{
+        ViewData["Title"] = "Create";
+    }
+
+    <br />
+    <h2 class="text-info">Add New Product</h2>
+    <form asp-action="Create" method="post" enctype="multipart/form-data">
+        <div class="p-4 rounded border">
+            <div asp-validation-summary="ModelOnly" class="text-danger">
+
+            </div>
+            <h5>@ViewBag.message</h5>
+            <div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="Name"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="Name" class="form-control" />
+                </div>
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="Image"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="Image" class="form-control" multiple type="file" />
+                </div>
+                <span asp-validation-for="Image" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="Description"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="Description" class="form-control" />
+                </div>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary" value="Save" />
+                <a asp-action="Index" class="btn btn-success">Back to List</a>
+            </div>
+        </div>
+    </form>
+    @section Scripts{
+        @{
+            await Html.RenderPartialAsync(partialViewName: "_ValidationScriptsPartial");
+        }
+    }*@
+
+
+
+
+
+@model OnlineShopFinal.ViewModel.FrontPageElementViewModel
+
+<form method="post" enctype="multipart/form-data" asp-action="AddEditFrontPageElement">
+
+    <div class="modal fade" id="addEmployee">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="addEmployeeLabel">Add FrontElement</h4>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>x</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label asp-for="Name"></label>
+
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Description"></label>
+                        <input asp-for="Description" class="form-control" />
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="LatestNewsDescription"></label>
+                        <input asp-for="LatestNewsDescription" class="form-control" />
+                        <span asp-validation-for="LatestNewsDescription" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Image"></label>
+                        <input type="file" class="form-control" asp-for="Image" multiple />
+
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-primary" value="Update" />
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>
+@section Scripts{
+    @{ await Html.RenderPartialAsync(partialViewName: "_ValidationScriptsPartial"); }
+}

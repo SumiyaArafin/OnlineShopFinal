@@ -1,0 +1,48 @@
+﻿@model IEnumerable<OnlineShopFinal.Models.PurchaseOrderLineItem>
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-body">
+                    <table id="myTable" class=" table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Quantity</th>
+                                <th>Unit Price</th>
+                                <th>Tax</th>
+                                <th>Sub Total</th>
+
+                                <th>Product Name</th>
+                                <th> <a onclick="showInPopup('@Url.Action("Create","Purchase",null,Context.Request.Scheme)', 'Purchase Order Details')" class="btn btn-success text-white"><i class="fas fa-random"></i>New Purchase</a></th>
+
+                            </tr>
+
+                        </thead>
+                        <tbody>
+
+                            @foreach (var purchase in Model)
+                            {
+                                <tr>
+                                    <td>@purchase.Quantity</td>
+                                    <td>@purchase.UnitPrice</td>
+                                    <td>@purchase.ProductTax</td>
+                                    <td>@purchase.Subtotal</td>
+                                    <td>@purchase.Product.Name</td>
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+        </div><!-- /.col -->
+    </div>
+</section>
+
+
+
+
+
+
+

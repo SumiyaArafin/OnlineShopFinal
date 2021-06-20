@@ -1,0 +1,70 @@
+﻿
+
+
+@model OnlineShopFinal.ViewModel.FrontPageElementViewModel
+
+@{ ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml"; }
+<script src="~/lib/jquery/dist/jquery.js"></script>
+
+
+
+
+<form method="post" enctype="multipart/form-data" asp-action="EditFrontPageElement">
+
+
+    <div class="form-group">
+        <label asp-for="Name" class="col-md-3 control-label"></label>
+        <div class="col-md-5">
+            <input asp-for="Name" class="form-control" autofocus="" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description" class="col-md-3 control-label"></label>
+        <div class="col-md-5">
+            <input asp-for="Description" class="form-control" autofocus="" />
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="LatestNewsDescription" class="col-md-3 control-label"></label>
+        <div class="col-md-5">
+            <textarea asp-for="LatestNewsDescription" class="form-control"></textarea>
+            
+            <span asp-validation-for="LatestNewsDescription" class="text-danger"></span>
+        </div>
+    </div>
+    
+
+    <div class="form-group">
+        <label class="col-md-3 control-label">Image</label>
+        <div class="col-md-5">
+            <input type="file" class="form-control" asp-for="Image" multiple />
+        </div>
+    </div>
+
+
+  
+    <br />
+    <div class="form-group">
+        <input type="submit" class="btn btn-primary" value="Update" />
+        <a asp-action="Index" class="btn btn-success">Back</a>
+    </div>
+</form>
+
+
+
+
+<script>
+    $.validator.unobtrusive.parse("#frm");
+</script>
+
+
+
+
+
+
+

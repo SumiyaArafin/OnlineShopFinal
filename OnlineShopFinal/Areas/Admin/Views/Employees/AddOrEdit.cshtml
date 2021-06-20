@@ -1,0 +1,183 @@
+﻿@model OnlineShopFinal.Models.Employee
+
+@{
+    ViewData["Title"] = "AddOrEdit";
+    Layout = null;
+}
+<div class="row">
+    <div class="col-md-12 col-12 col-lg-12">
+        <form asp-route-id="@Model.Id" onsubmit="return jQueryAjaxPost(this);">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input asp-for="Id" type="hidden" class="form-control" />
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="FristName" class="control-label"></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">#</div>
+                            </div>
+                            <input asp-for="FristName" class="form-control" />
+                            <span asp-validation-for="FristName" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="LastName" class="control-label"></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">#</div>
+                            </div>
+                            <input asp-for="LastName" class="form-control" />
+                            <span asp-validation-for="LastName" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="JoiningDate" class="control-label"></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">#</div>
+                            </div>
+
+                            <input asp-for="JoiningDate" type="date" class="form-control" />
+                            <span asp-validation-for="JoiningDate" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                         <label asp-for="EmployeeStatus" class="control-label"></label>
+                        
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">#</div>
+                                </div>
+                               
+                                <select asp-for="EmployeeStatus" class="form-control">
+                                    <option value="Employed">Employed</option>
+                                    <option value="Resigned">Resigned</option>
+                                    <option value="Fired">Fired</option>
+                                </select>
+                                <span asp-validation-for="EmployeeStatus" class="text-danger"></span>
+                            </div>
+                    
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="EmployeeType" class="control-label"></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">#</div>
+                            </div>
+
+                            <select asp-for="EmployeeType" class="form-control">
+                                <option value="Permanent">Permanent</option>
+                                <option value="PartTime">PartTime</option>
+                                <option value="Contractual">Contractual</option>
+                            </select>
+                            <span asp-validation-for="EmployeeType" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Email" class="control-label"></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">#</div>
+                            </div>
+
+                            <input asp-for="Email" type="email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-12 col-lg-6 ">
+                    <div class="form-group">
+                        <label asp-for="ContactNo" class="control-label"></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">#</div>
+                            </div>
+                            <input asp-for="ContactNo" class="form-control" />
+                            <span asp-validation-for="ContactNo" class="text-danger"></span>
+                        </div>
+                    </div>
+                 
+                </div>
+                <div class="col-md-6 col-12 col-lg-6 ">
+                    <div class="form-group">
+                        <label asp-for="EmergencyContactNo" class="control-label"></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">#</div>
+                            </div>
+                            <input asp-for="EmergencyContactNo" class="form-control" />
+                            <span asp-validation-for="EmergencyContactNo" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-12 col-lg-6 ">
+                    <div class="form-group">
+                        <label class="control-label">Designation</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">#</div>
+                            </div>
+                            <select asp-for="DesignationId" class="form-control" asp-items="ViewBag.DesignationId" id="Designation"></select>
+                            <span asp-validation-for="DesignationId" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-12 col-lg-6 ">
+                    <div class="form-group">
+                        <label asp-for="Salary" class="control-label"></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">#</div>
+                            </div>
+                            <input asp-for="Salary" type="number" id="Salary"class="form-control" />
+                            <span asp-validation-for="Salary" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+         
+            <div class="row">
+                <div class="col-md-12 col-12 col-lg-12">
+                    <div class="form-group">
+                        <label asp-for="PermanentAddress" class="control-label"></label>
+                        <textarea asp-for="PermanentAddress" class="form-control"></textarea>
+                        <span asp-validation-for="PermanentAddress" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-12 col-lg-12">
+                    <div class="form-group">
+                        <label asp-for="PresentAddress" class="control-label"></label>
+                        <textarea asp-for="PresentAddress" class="form-control"></textarea>
+                        <span asp-validation-for="PresentAddress" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+

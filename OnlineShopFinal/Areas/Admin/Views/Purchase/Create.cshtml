@@ -1,0 +1,264 @@
+﻿@model List<OnlineShopFinal.Models.PurchaseOrderLineItem>
+@using OnlineShopFinal.Extensions
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = null;
+}
+<head>
+    <script language="javascript">
+
+        $(document).ready(function () {
+            document.getElementById("sbtotal").readOnly = true;
+            document.getElementById("sbtotal").style.color = "#black";
+            document.getElementById("sbtotal").style.backgroundColor = "#ebe6e6";
+
+            function totalIt() {
+                var total = 0;
+                $(".subtotal").each(function () {
+                    var val = this.value;
+                    total += val == "" || isNaN(val) ? 0 : parseFloat(val);
+                });
+                $("#total").val(total);
+            }
+
+            $(document).on("keyup", ".quantity, .price, .discount, .tax", function () {
+                var $row = $(this).closest("tr"),
+                    prce = parseFloat($row.find('.price').val()),
+                    qnty = parseFloat($row.find('.quantity').val()),
+                    discount = parseFloat($row.find('.discount').val()),
+                    tax = parseFloat($row.find('.tax').val()),
+
+
+                    subTotal = ((prce * qnty) - ((prce * (discount / 100)) * qnty) + ((prce * (tax / 100)) * qnty)) ;
+                $row.find('.subtotal').val(isNaN(subTotal) ? 0 : subTotal);
+                totalIt()
+            });
+
+
+            //1. Add new row
+            $("#addNew").click(function (e) {
+
+                var $tableBody = $('#dataTable').find("tbody"),
+                    $trLast = $tableBody.find("tr:last"),
+                    $trNew = $trLast.clone();
+
+
+
+                $trNew.find("td").find(':input').val('');
+                var suffix = $trNew.find(':input:first').attr('name').match(/\d+/);
+                console.log(suffix);
+                $.each($trNew.find(':input'), function (i, val) {
+                    $('#qt').keyup(function () {
+                        var res = $('#qt').val() * $('#sum').val();
+                        if (res == Number.POSITIVE_INFINITY || res == Number.NEGATIVE_INFINITY || isNaN(res))
+                            res = "N/A"; // OR 0
+                        $('#result').val(res);
+                    });
+
+                    // Replaced Name
+                    var oldN = $(this).attr('name');
+                    var newN = oldN.replace('[' + suffix + ']', '[' + (parseInt(suffix) + 1) + ']');
+
+                    $(this).attr('name', newN);
+                    //Replaced value
+                    var type = $(this).attr('type');
+
+                    // If you have another Type then replace with default value
+                    $(this).removeClass("input-validation-error");
+
+                });
+                $trLast.after($trNew);
+
+                $trNew.find('#addNew').hide();
+
+
+                $trNew.find("#rmv").html('<a href="#" class="remove">Remove</a>');
+                var $trfirst = $tableBody.find("tr:first");
+
+                $trfirst.find('.remove').hide();
+
+            });
+
+            $('#dataTable').on('click', '.remove', function () {
+                $(this).parents('tr').remove();
+            });
+        });
+
+        $("#dataTable").each(function () {
+            $('#date').change(function () {
+                $('#datefortable').val($('#date').val());
+
+            });
+
+        });
+    </script>
+
+</head>
+<style>
+    td {
+        padding: 5px;
+    }
+
+    tr {
+        border: none;
+    }
+
+    th {
+        width: 100px;
+        height: 40px;
+    }
+
+    input {
+        width: 100px;
+        height: 40px;
+    }
+
+    select {
+        width: 100px;
+        height: 40px;
+    }
+
+    #addNew {
+        border-color: #FFFFFF #327CB5 #327CB5 #FFFFFF;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: blue;
+        border-style: solid;
+        border-width: 1px;
+        color: #FFFFFF;
+        cursor: pointer;
+        font-weight: bold;
+        padding: 5px;
+        text-align: center;
+        text-shadow: 1px 1px 1px #000000;
+    }
+
+    .pNumber {
+        width: 200px;
+        padding: 5px;
+        font-size: 18px;
+        font-weight: bold;
+        color: #403e3b;
+    }
+
+    .Date {
+        width: 200px;
+        padding: 5px;
+        font-size: 18px;
+        font-weight: bold;
+        color: #403e3b;
+    }
+
+    .pNumberDiv {
+        display: inline;
+        float: left;
+        margin-right: 20px;
+    }
+
+    .DateDiv {
+        display: inline;
+    }
+
+    .pNumberInput {
+        display: block;
+        width: 200px;
+    }
+
+    .DateInput {
+        display: block;
+        width: 200px;
+    }
+</style>
+
+<div style="width:auto; padding:5px; background-color:white;">
+    @using (Html.BeginForm("Create", "Purchase", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        if (ViewBag.Message != null)
+        {
+            <div style="border:solid 1px green">
+                @ViewBag.Message
+            </div>
+        }
+
+
+
+        int m = 0;
+        <div class="pNumberDiv">
+            <label class="pNumber">ReferenceNo</label>
+            <input class="pNumberInput" asp-for="@Model[m].PurchaseOrder.ReferenceNo" value="@ViewBag.puchaseNumber" type="text"  />
+        </div>
+        <div class="DateDiv">
+            <label class="Date">Date</label>
+            <input class="DateInput" id="date" asp-for="@Model[m].PurchaseOrder.Date" type="date" />
+        </div>
+        <div style="font-weight:1000; font-size:20px; padding-top:30px; ">
+            <span>Line Item</span>
+            <hr />
+        </div>
+        <table id="dataTable" border="0" cellpadding="0" cellspacing="0">
+
+
+            <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Tax</th>
+                <th>Discount</th>
+                <th>Quantity</th>
+
+
+                <th>SubTotal</th>
+
+
+                <th></th>
+            </tr>
+            @if (Model != null && Model.Count > 0)
+            {
+                int j = 0;
+                foreach (var i in Model)
+                {
+
+                    <tr>
+
+
+                        <td>
+
+                            <select class="Chosen" asp-for="@Model[j].ProductId" asp-items="ViewBag.productName" class="form-control"></select>
+                        </td>
+
+
+                        <td><input class="price" asp-for="@Model[j].UnitPrice" /></td>
+
+                        <td><input class="tax" asp-for="@Model[j].ProductTax" /></td>
+
+                        <td hidden><input value="True" asp-for="@Model[j].PurchaseOrder.Status" /></td>
+
+                        <td><input class="discount" asp-for="@Model[j].Discount" /></td>
+
+                        <td><input class="quantity" asp-for="@Model[j].Quantity" /></td>
+
+                        <td hidden><input asp-for="@Model[j].PurchaseOrder.Id" /></td>
+
+                        <td><input class="subtotal" id="sbtotal" asp-for="@Model[j].Subtotal" /></td>
+                        <td>
+                            <div id="rmv"><a href="#" id="addNew">+</a></div>
+                        </td>
+                        <td></td>
+                    </tr>
+                    j++;
+                }
+            }
+        </table>
+
+        <div id="siteInfo" style="text-align: center">
+            <input type="submit" style="background-color:cornflowerblue; color:white; font:bold" value="Submit" />
+        </div>
+
+    }
+</div>
+
+

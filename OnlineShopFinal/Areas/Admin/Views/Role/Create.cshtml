@@ -1,0 +1,101 @@
+﻿@*@{
+        ViewData["Title"] = "Create";
+    }
+
+    <br />
+    <h2 class="text-info">Add New Role</h2>
+    <form asp-action="Create" method="post" id="role-form" enctype="multipart/form-data">
+        <div class="p-4 rounded border">
+            <div asp-validation-summary="ModelOnly" class="text-danger">
+
+            </div>
+            <h5 style="color:red;">@ViewBag.message</h5>
+            <div class="form-group row">
+                <div class="col-2">
+                    <label>Role Name</label>
+                </div>
+                <div class="col-5">
+                    <input id="name" name="name" required="required" value="@ViewBag.name" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary" value="Save" />
+                <a asp-action="Index" class="btn btn-success">Back to List</a>
+            </div>
+        </div>
+    </form>
+    @section Scripts{
+        @{
+            await Html.RenderPartialAsync(partialViewName: "_ValidationScriptsPartial");
+        }
+        <script>
+        $(document).ready(function () {
+            $("#user-form").validate({
+                rules: {
+                    UserName: {
+                        required: true,
+
+                    },
+                     PasswordHash: {
+                        required: true,
+
+                    },
+                      FirstName: {
+                        required: true,
+
+                    },
+                    LastName: {
+                        required: true,
+                    }
+
+                    },
+                    messages: {
+                        UserName: "Enter your Email",
+                        PasswordHash: "Enter your Password",
+                        FirstName: "Enter your First Name",
+                        LastName:"Enter your Last Name"
+                    }
+
+            });
+        });
+        </script>
+    }*@
+
+
+<form asp-action="Create" method="post" id="role-form" enctype="multipart/form-data">
+
+    <div class="modal fade" id="addEmployee">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="addEmployeeLabel">Add Role</h4>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>x</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+               
+                    <h5 style="color:red;">@ViewBag.message</h5>
+                    <div class="form-group">
+                        <label>Role Name</label>
+
+                        <input id="name" name="name" required="required" value="@ViewBag.name" class="form-control" />
+                     
+                    </div>
+
+                   
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-primary" value="Save" />
+                  
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>

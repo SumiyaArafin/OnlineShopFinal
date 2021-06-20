@@ -1,0 +1,198 @@
+﻿@*@using OnlineShopFinal.Models
+    @model List<FirstBlog>*@
+@model OnlineShopFinal.ViewModel.FirstBlogListViewModel
+
+
+
+
+
+
+<!doctype html>
+<html class="no-js" lang="zxx">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Hidro -  Minimal eCommerce HTML Template</title>
+    <meta name="description" content="Hidro is a eCommerce Boostrap HTML Templates. It is one of the best minimal ecommerce templates. you can use it for minimal shop.">
+    <meta name="keywords" content="HTML5, flowers, cookery, sport, bootstrap, interior, fashion, shopping, electronics, clothes, digital, responsive, Technology, furniture,minimal, minimal shop">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <!-- Place favicon.ico in the root directory -->
+    <!-- all css here -->
+    <link rel="stylesheet" href="~/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/assets/css/pe-icon-7-stroke.css">
+    <link rel="stylesheet" href="~/assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/assets/css/meanmenu.css">
+    <link rel="stylesheet" href="~/assets/css/shortcodes/shortcode.css">
+    <link rel="stylesheet" href="~/assets/css/style.css">
+    <link rel="stylesheet" href="~/assets/css/responsive.css">
+    <script src="~/assets/js/vendor/modernizr-2.8.3.min.js"></script>
+</head>
+<body>
+    <!--[if lt IE 8]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <!-- Add your site or application content here -->
+    <div class="waraper-style">
+        <header>
+            <div class="header-area">
+
+            </div>
+        </header>
+        <!-- header end -->
+        <!-- breadcrumb start -->
+        <div class="breadcrumb-area gray-bg">
+            <div class="container text-center">
+                <div class="breadcrumb-stye ptb-100">
+                    <h2 class="page-title">blog details</h2>
+                    <ul>
+                        <li><a asp-area="Customer" asp-controller="Home" asp-action="Index">home</a></li>
+                        <li class="active">blog details</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- breadcrumb end -->
+        <!-- blog-area start -->
+        <div class="blog-details-area ptb-100">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="blog-details">
+                            <img src="~/@Model.Image" alt="">
+                            <div class="blog-details-text">
+                                <h3>@Model.BlogHeader</h3>
+                                <p>@Model.BlogDetails</p>
+                                <blockquote>@Model.BlockQuote</blockquote>
+                                <p>@Model.BlockQuoteDetails</p>
+                                <div class="tag-share text-center">
+                                    <div class="tag">
+                                        <ul>
+                                            <li>tags :</li>
+                                            <li><a href="#">fashion ,</a></li>
+                                            <li><a href="#">new style ,</a></li>
+                                            <li><a href="#">spring</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="share">
+                                        <ul>
+                                            <li>share :</li>
+                                            <li>
+                                                <a href="#">
+                                                    <i class="fa fa-facebook"></i>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <i class="fa fa-twitter"></i>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <i class="fa fa-google-plus"></i>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <i class="fa fa-linkedin"></i>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <i class="fa fa-instagram"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="next-previous text-center">
+                                    <div class="previous">
+                                        <a href="#"><i class="fa fa-angle-left" aria-hidden="true"></i> Previous</a>
+                                    </div>
+                                    <div class="next">
+                                        <a href="#">next <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                                <div class="leave-comment">
+                                    <h3 class="leave-comment-text">Leave a Reply</h3>
+                                    <form action="#">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="leave-form">
+                                                    <input placeholder="Name*" type="text">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="leave-form">
+                                                    <input placeholder="Email*" type="text">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="text-leave">
+                                                    <textarea placeholder="Comment*"></textarea>
+                                                    <button class="submit" type="submit">Send Commant</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- blog-area end -->
+        <!-- Modal -->
+        <div class="modal fade" id="loginModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="login">
+                            <div class="login-form-container">
+                                <div class="login-text">
+                                    <h2>login</h2>
+                                    <span>Please login using account detail bellow.</span>
+                                </div>
+                                <div class="login-form">
+                                    <form action="#" method="post">
+                                        <input type="text" name="user-name" placeholder="Username">
+                                        <input type="password" name="user-password" placeholder="Password">
+                                        <div class="button-box">
+                                            <div class="login-toggle-btn">
+                                                <input type="checkbox" id="remember">
+                                                <label for="remember">Remember me</label>
+                                                <a href="#">Forgot Password?</a>
+                                            </div>
+                                            <button type="submit" class="default-btn floatright">Login</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal end -->
+    </div>
+
+    <!-- all js here -->
+    <script src="~/assets/js/vendor/jquery-1.12.0.min.js"></script>
+    <script src="~/assets/js/bootstrap.min.js"></script>
+    <script src="~/assets/js/jquery.meanmenu.js"></script>
+    <script src="~/assets/js/isotope.pkgd.min.js"></script>
+    <script src="~/assets/js/imagesloaded.pkgd.min.js"></script>
+    <script src="~/assets/js/jquery.counterup.min.js"></script>
+    <script src="~/assets/js/waypoints.min.js"></script>
+    <script src="~/assets/js/ajax-mail.js"></script>
+    <script src="~/assets/js/owl.carousel.min.js"></script>
+    <script src="~/assets/js/plugins.js"></script>
+    <script src="~/assets/js/main.js"></script>
+</body>
+</html>

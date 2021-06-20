@@ -1,0 +1,121 @@
+﻿@*@model cloudscribe.Pagination.Models.PagedResult<Product>*@
+@using OnlineShopFinal.Models
+@model List<Product>
+@{
+    ViewData["Title"] = "Category Page";
+    ViewData["Controller"] = "Category";
+    ViewData["Action"] = "GetCategoryDetails";
+}
+
+
+
+
+
+
+
+
+
+
+<!doctype html>
+<html class="no-js" lang="zxx">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Hidro -  Minimal eCommerce HTML Template</title>
+    <meta name="description" content="Hidro is a eCommerce Boostrap HTML Templates. It is one of the best minimal ecommerce templates. you can use it for minimal shop.">
+    <meta name="keywords" content="HTML5, flowers, cookery, sport, bootstrap, interior, fashion, shopping, electronics, clothes, digital, responsive, Technology, furniture,minimal, minimal shop">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <!-- Place favicon.ico in the root directory -->
+    <!-- all css here -->
+    <link rel="stylesheet" href="~/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/assets/css/pe-icon-7-stroke.css">
+    <link rel="stylesheet" href="~/assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/assets/css/meanmenu.css">
+    <link rel="stylesheet" href="~/assets/css/shortcodes/shortcode.css">
+    <link rel="stylesheet" href="~/assets/css/style.css">
+    <link rel="stylesheet" href="~/assets/css/responsive.css">
+    <script src="~/assets/js/vendor/modernizr-2.8.3.min.js"></script>
+</head>
+<body>
+    <!--[if lt IE 8]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <!-- Add your site or application content here -->
+    <div class="waraper-style">
+
+        <!-- breadcrumb start -->
+        <div class="breadcrumb-area">
+            <div class=" text-center">
+                <div class="breadcrumb-stye gray-bg ptb-100">
+                    <h2 class="page-title">shop page</h2>
+                    <ul>
+                        <li><a asp-area="Customer" asp-controller="Home" asp-action="Index">home</a></li>
+                        <li class="active">Category</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- breadcrumb end -->
+        <!-- shop area start -->
+        <div class="shop-area ptb-90">
+            <div class="container">
+
+                <div class="shop-style-all">
+                    <div class="row">
+                        <div class="grid">
+
+                            @foreach (var product in Model)
+                            {
+                                <div class="col-md-3 col-sm-6 col-xs-12 grid-item cat1">
+                                    <div class="shop hover-style mb-30">
+                                        <div class="shop-img">
+                                            <div class="shop-single-img">
+                                                <a asp-area="Customer" asp-action="Details" asp-controller="Home" asp-route-product="@product.Id">
+                                                    @if (product.Image == null)
+                                                    {
+                                                        <img src="~/assets/img/shop/No_Image_Avail.png" />
+                                                    }
+                                                    else
+                                                    {
+                                                        <img src="~/@product.Image" />
+                                                    }
+                                                </a>
+
+                                            </div>
+                                            <div class="title-style-3 text-center">
+                                                <h3><a asp-area="Customer" asp-action="Details" asp-controller="Home" asp-route-product="@product.Id">@product.Name</a></h3>
+                                                <span class="new-price">$@product.AvailablePrice</span>
+                                                <span class="old-price">$@product.PreviousPrice</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- shop area end -->
+
+    </div>
+    <!-- all js here -->
+    <script src="~/assets/js/vendor/jquery-1.12.0.min.js"></script>
+    <script src="~/assets/js/bootstrap.min.js"></script>
+    <script src="~/assets/js/jquery.meanmenu.js"></script>
+    <script src="~/assets/js/isotope.pkgd.min.js"></script>
+    <script src="~/assets/js/imagesloaded.pkgd.min.js"></script>
+    <script src="~/assets/js/jquery.counterup.min.js"></script>
+    <script src="~/assets/js/waypoints.min.js"></script>
+    <script src="~/assets/js/ajax-mail.js"></script>
+    <script src="~/assets/js/owl.carousel.min.js"></script>
+    <script src="~/assets/js/plugins.js"></script>
+    <script src="~/assets/js/main.js"></script>
+</body>
+</html>
+

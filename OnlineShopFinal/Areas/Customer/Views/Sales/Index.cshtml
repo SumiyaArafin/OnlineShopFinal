@@ -1,0 +1,117 @@
+﻿@using OnlineShopFinal.Models
+@model List<OrderDetails>
+
+
+@{
+    ViewData["Title"] = "Index";
+    decimal subTotal = 0;
+    decimal totalAmount = 0;
+
+}
+
+<section class="content-header">
+    <h1>
+        Products List
+    </h1>
+</section>
+
+<br />
+
+<form asp-action="Index" method="post">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4" hidden>
+                <input type="datetime" value="@ViewData["startDate"]" class="form-control" name="Date1" />
+            </div>
+            <div class="col-md-4" hidden>
+                <input type="datetime" value="@ViewData["endDate"]" class="form-control" name="Date2" />
+            </div>
+            <div class="col-md-4" hidden>
+                <input type="datetime"  class="form-control" name="d1" />
+            </div>
+            <div class="col-md-4" hidden>
+                <input type="datetime" class="form-control" name="d2" />
+            </div>
+            <div class="col-md-4">
+                <input placeholder="Start Date" type="datetime" class="form-control" name="StartDate" />
+            </div>
+            <div class="col-md-4">
+                <input placeholder="End Date" type="datetime" class="form-control" name="EndDate" />
+            </div>
+            <div class="col-md-4">
+                <input type="submit" value="Search" class="btn btn-success" name="Search" />
+            </div>
+            <div class="col-md-4">
+                <input type="submit" value="Generate PDF" class="btn btn-success" name="Search" />
+            </div>
+
+        </div>
+    </div>
+
+</form>
+
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-body">
+                    <table id="myTable" class=" table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Date</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Sub Total</th>
+                            </tr>
+                            
+                        </thead>
+                        <tbody>
+
+                            @foreach (OrderDetails invoiceDetails in Model)
+                            {
+                                <tr>
+                                    <td>@invoiceDetails.Product.Name</td>
+                                    <td>@invoiceDetails.Date</td>
+                                    <td>@invoiceDetails.Price</td>
+                                    <td>@invoiceDetails.Quantity</td>
+                                    <td>
+                                        @{
+                                            subTotal = invoiceDetails.Price * invoiceDetails.Quantity;
+                                            totalAmount = totalAmount + subTotal;
+                                        }
+                                        @subTotal
+                                    </td>
+                                </tr>
+                            }
+                           
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Name</th>
+                                <th>Date</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <td><b>Total: $@totalAmount</b></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+        </div><!-- /.col -->
+    </div>
+</section>
+
+
+
+@section scripts{
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+    </script>
+}
+

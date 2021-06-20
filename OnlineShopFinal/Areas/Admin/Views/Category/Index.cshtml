@@ -1,0 +1,218 @@
+﻿@*@using OnlineShopFinal.Models;
+    @model IEnumerable<Category>
+    @{
+        ViewData["Title"] = "Index";
+    }
+
+    <br />
+    <br />
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Category List</h2>
+        </div>
+        <div class="col-6 text-right">
+            <a asp-action="Create" class="btn btn-info"><i class="fas fa-plus"></i>&nbsp; New Product Type</a>
+        </div>
+    </div>
+    <div>
+        <table class="table table-striped border">
+            <tr class="table-info">
+                <th>
+                    @Html.DisplayNameFor(expression: c => c.Name)
+                </th>
+                <th></th>
+                <th></th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>
+                        <partial name="_ButtonPartial" model="@item.Id" />
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+
+    @section scripts{
+        <script src="~/lib/alertify/js/alertify.min.js"></script>
+        <script type="text/javascript">
+            $(function () {
+                var save = '@TempData["save"]'
+                if (save != null) {
+                    alertify.success(save);
+                }
+                var edit = '@TempData["edit"]'
+                if (save != null) {
+                    alertify.success(edit);
+                }
+                var del = '@TempData["delete"]'
+                if (save != null) {
+                    alertify.error(del);
+                }
+            })
+        </script>
+    }*@
+
+
+
+@model OnlineShopFinal.Models.Category
+@{
+    ViewData["Title"] = "Index";
+}
+
+@*<script src="~/lib/jquery/dist/jquery.min.js"></script>*@
+<script src="~/lib/jquery/jquery.min.js"></script>
+
+@*<div class="row mr-5">
+    <div class="col-6">
+        <h2 class="text-info">Category List</h2>
+    </div>
+    <div class="col-2">
+        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#supplierModal">Add Category</a>
+    </div>
+</div>*@
+
+<h2 class="text-info mr-5">Category List</h2>
+<P>
+    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#supplierModal">Add Category</a>
+</P>
+
+
+<div class="modal fade" id="supplierModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title"> Add Category</h2>
+            </div>
+            <div class="modal-body">
+                <form id="supplierForm">
+                    <label>Category Name</label>
+                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="btn-group">
+                    <a href="#" id="btnSave" class="btn btn-primary mr-4">Save Category</a>
+                    <a href="#" id="btnCancel" class="btn btn-danger">Cancel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="modal fade" id="deleteModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title"> Confirm</h2>
+            </div>
+            <div class="modal-body">
+                <h4>Are You sure you want to delete this Category?</h4>
+            </div>
+            <div class="modal-footer">
+                <div class="btn-group">
+                    <a href="#" id="btnDelete" class="btn btn-primary mr-3">Delete</a>
+                    <a href="#" id="btnCancelConfirm" class="btn btn-danger">Cancel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="container ml-5 mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-xl-8 col-lg-7 col-md-5">
+            <div class="border border-gainsboro p-3">
+
+                <table class="table table-bordered">
+                    <tr class="btn-primary">
+                        <th>
+                            Name
+                        </th>
+
+                        <th>
+                            Action
+                        </th>
+                    </tr>
+
+                    @foreach (var item in ViewBag.Suppliers)
+                    {
+                        <tr>
+                            <td>
+                                @item.Name
+                            </td>
+
+                            <td>
+
+                                @*@Html.ActionLink("Edit", "Edit", new { id = item.Id })*@
+                                <a href="#" @*id="showModal"*@ class="btn btn-primary" @*onclick="Confirm(@item.Id)"*@>Edit</a>
+                                <a href="#" id="showModal" class="btn btn-danger" onclick="Confirm(@item.Id)">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" id="supplierId" />
+
+<script>
+    $(document).ready(function () {
+        $("#btnSave").click(function () {
+            var supplierFormData = $("#supplierForm").serialize();
+            $.ajax({
+                type: "POST",
+                url: "/Admin/Category/Create",
+                data: supplierFormData,
+                success: function () {
+                    window.location.href = "/Admin/Category/Index";
+                }
+            })
+        })
+
+        $("#btnCancel").click(function () {
+            window.location.href = "/Admin/Category/Index";
+        })
+
+        $("#btnCancelConfirm").click(function () {
+            window.location.href = "/Admin/Category/Index";
+        })
+        $("#btnDelete").click(function () {
+            var _id = $("#supplierId").val();
+            $.ajax({
+                type: "POST",
+                url: "/Admin/Category/Delete",
+                data: { id: _id },
+                success: function (result) {
+                    if (result) {
+                        $("#deleteModal").modal('hide');
+                        $("#supplierId").val(null);
+                        window.location.href = "/Admin/Category/Index";
+                    } else {
+                        alert("Something went wrong while processing your request");
+                    }
+
+                }
+            });
+        });
+
+
+    })
+
+    var Confirm = function (id) {
+        $("#supplierId").val(id);
+        $("#deleteModal").modal('show');
+
+    }
+
+</script>

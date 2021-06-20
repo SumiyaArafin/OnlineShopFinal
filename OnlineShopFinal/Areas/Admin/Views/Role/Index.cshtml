@@ -1,0 +1,170 @@
+﻿@*@{
+        ViewData["Title"] = "Index";
+    }
+
+    <br />
+    <br />
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info d-inline mr-5">Roles</h2>
+
+
+        </div>
+
+        <div class="col-6 text-right">
+            <a asp-action="Create" class="btn btn-info"><i class="fas fa-plus"></i>&nbsp;  New Role</a>
+        </div>
+    </div>
+    <div>
+        <table class="table table-striped border">
+            <tr class="table-info">
+                <th>
+                    Name
+                </th>
+                <th></th>
+
+            </tr>
+            @foreach (var item in ViewBag.Roles)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td style="width:150px;">
+                        <div class="btn-group">
+                            <a asp-action="Edit" class="btn btn-primary" asp-route-id="@item.Id"><i class="fas fa-edit"></i></a>
+                            <a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.Id"><i class="fas fa-trash"></i></a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </table>
+
+    </div>
+
+    @section scripts{
+        <script src="~/lib/alertify/js/alertify.min.js"></script>
+        <script type="text/javascript">
+        $(function () {
+
+        })
+        </script>
+    }*@
+
+
+
+
+
+@{
+    ViewData["Title"] = "Index";
+
+}
+
+<br />
+<br />
+@*<script src="~/lib/jquery/dist/jquery.min.js"></script>*@
+<script src="~/lib/jquery/jquery.min.js"></script>
+@*<div class="row">
+    <div class="col-6">
+        <h2 class="text-info">SubCategory Types</h2>
+    </div>*@
+<div id="placeHolderHere"></div>
+<button style="margin-left:16px" type="button" class="btn btn-info" data-toggle="ajax-modal" data-target="#addEmployee" data-url="@Url.Action("Create")"> Add Role</button>
+
+
+<br />
+<div class="col-6">
+    <table class="table table-striped border">
+        <tr class="table-info">
+            <th>
+                Name
+            </th>
+            <th></th>
+
+        </tr>
+        @foreach (var item in ViewBag.Roles)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td style="width:150px;">
+                    <div class="btn-group">
+                        <a asp-action="Edit" class="btn btn-primary" asp-route-id="@item.Id"><i class="fas fa-edit"></i></a>
+                        <a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.Id"><i class="fas fa-trash"></i></a>
+                        @*<a href="#" id="showModal" class="btn btn-danger" onclick="Confirm(@item.Id)"><i class="fas fa-trash"></i></a>*@
+                    </div>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+
+<div class="modal fade" id="deleteModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title"> Confirm</h2>
+            </div>
+            <div class="modal-body">
+                <h4>Are You sure you want to delete this Category?</h4>
+            </div>
+            <div class="modal-footer">
+                <div class="btn-group">
+                    <a href="#" id="btnDelete" class="btn btn-danger mr-3">Delete</a>
+                    <a href="#" id="btnCancelConfirm" class="btn btn-primary">Cancel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input type="hidden" id="supplierId" />
+
+<script>
+    $(document).ready(function () {
+        //$("#btnSave").click(function () {
+        //    var supplierFormData = $("#supplierForm").serialize();
+        //    $.ajax({
+        //        type: "POST",
+        //        url: "/Admin/Category/Create",
+        //        data: supplierFormData,
+        //        success: function () {
+        //            window.location.href = "/Admin/Category/Index";
+        //        }
+        //    })
+        //})
+
+        //$("#btnCancel").click(function () {
+        //    window.location.href = "/Admin/Category/Index";
+        //})
+
+        $("#btnCancelConfirm").click(function () {
+            window.location.href = "/Admin/SubCategory/Index";
+        })
+        $("#btnDelete").click(function () {
+            var _id = $("#supplierId").val();
+            $.ajax({
+                type: "POST",
+                url: "/Admin/SubCategory/Delete",
+                data: { id: _id },
+                success: function (result) {
+                    if (result) {
+                        $("#deleteModal").modal('hide');
+                        $("#supplierId").val(null);
+                        window.location.href = "/Admin/SubCategory/Index";
+                    } else {
+                        alert("Something went wrong while processing your request");
+                    }
+
+                }
+            });
+        });
+
+
+    })
+
+    var Confirm = function (id) {
+        $("#supplierId").val(id);
+        $("#deleteModal").modal('show');
+
+    }
+
+</script>

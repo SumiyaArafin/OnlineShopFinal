@@ -1,0 +1,117 @@
+﻿@*@model ICollection<OrderDetails>*@
+@using OnlineShopFinal.Models
+@model List<OrderDetails>
+
+@{
+    ViewData["Title"] = "Details";
+    //Layout = "~/Views/Shared/_LayoutAdmins.cshtml";
+    Order invoiceInfo = ViewBag.InvoiceInfo;
+    ApplicationUser accountInfo = ViewBag.AccountInfo;
+    decimal subTotal = 0;
+    decimal totalAmount = 0;
+}
+<form method="post" asp-action="Details">
+    <input asp-for="@invoiceInfo.Id" type="hidden" />
+    <section class="content-header">
+        <h1>
+            Invoice
+            <small>@invoiceInfo.OrderNo</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li>
+                <a asp-area="Customer" asp-controller="Home" asp-action="Index">
+                    <i class="fa fa-dashboard"></i> Home
+                </a>
+            </li>
+            <li class="active">Invoice Details</li>
+        </ol>
+    </section>
+
+    <section class="invoice">
+        <!-- title row -->
+        <div class="row">
+            <div class="col-xs-12">
+                <h2 class="page-header">
+                    <i class="fa fa-globe"></i> @invoiceInfo.Name                   
+                </h2>
+                <h2 class="page-header">                   
+                    <small class="pull-right">Date:@invoiceInfo.Date.ToString("MM/dd/yy")</small>
+                </h2>
+            </div><!-- /.col -->
+        </div>
+        <br />
+        
+        <!-- info row -->
+        <div class="row invoice-info">
+            <div class="col-sm-4 invoice-col">
+                To
+                <address>
+                    <strong>@invoiceInfo.Name</strong><br>
+                    Address:@invoiceInfo.Address<br>
+                    Phone: @invoiceInfo.PhoneNo<br>
+                    Email: @invoiceInfo.Email
+                </address>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+        <!-- Table row -->
+        <div class="row">
+            <div class="col-xs-12 table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Sub Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (OrderDetails invoiceDetails in Model)
+                        {
+                            <tr>
+                                <td>@invoiceDetails.Product.Name</td>
+                                <td>@invoiceDetails.Price</td>
+                                <td>@invoiceDetails.Quantity</td>
+                                <td>
+                                    @{
+                                        subTotal = invoiceDetails.Price * invoiceDetails.Quantity;
+                                        totalAmount = totalAmount + subTotal;
+                                    }
+                                    @subTotal
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+
+        <div class="row">
+            <!-- accepted payments column -->
+            <div class="col-xs-6 pull-right">
+                <div class="table-responsive">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th>Total:</th>
+                                <td><b>$@totalAmount</b></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+        <!-- this row will not appear when printing -->
+        @if (invoiceInfo.Status == false)
+        {
+            <div class="row no-print">
+                <div class="col-xs-12">                  
+                    <input type="submit" class="btn btn-success pull-right fa fa-credit-card" value="Submit Payment" />
+                </div>
+            </div>
+        }
+
+    </section>
+
+</form>

@@ -1,0 +1,119 @@
+﻿@model ICollection<OnlineShopFinal.ViewModel.OrderInfoViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    decimal subtotal = 0;
+}
+
+<section class="content-header">
+    <h1>
+        Invoice List
+    </h1>
+</section>
+
+<br />
+
+<form asp-action="Index" method="post">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4" hidden>
+                <input type="datetime"  class="form-control" name="EmptyDate1" />
+            </div>
+            <div class="col-md-4" hidden>
+                <input type="datetime"  class="form-control" name="EmptyDate2" />
+            </div>
+            <div class="col-md-4" hidden>
+                <input type="datetime" value="@ViewData["startDate"]" class="form-control" name="Date1" />
+            </div>
+            <div class="col-md-4" hidden>
+                <input type="datetime" value="@ViewData["endDate"]" class="form-control" name="Date2" />
+            </div>
+            <div class="col-md-4">
+                <input placeholder="Start Date" type="datetime" class="form-control" name="StartDate" />
+            </div>
+            <div class="col-md-4">
+                <input placeholder="End Date" type="datetime" class="form-control" name="EndDate" />
+            </div>
+            <div class="col-md-4">
+                <input type="submit" value="Search" class="btn btn-success" name="Search" />
+            </div>
+            <div class="col-md-4">
+                <input type="submit" value="Generate PDF" class="btn btn-success" name="Search" />
+            </div>
+
+        </div>
+    </div>
+
+</form>
+
+
+@*<div class="container">
+        <div class="form-group">
+            <div class="input-group">
+                <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">        </div>
+        </div>
+
+    </div>*@
+
+
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-body">
+                    <table id="myTable" class=" table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Date</th>
+                                <th>SubTotal</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var customerInvoice in Model)
+                            {
+                                <tr class="search">
+
+                                    <td>@customerInvoice.Name</td>
+                                    <td>@customerInvoice.Date</td>
+                                    <td>@(customerInvoice.SubtoTotal)</td>
+                                    <td>@(customerInvoice.Status == false ? "Pending" : "Done")</td>
+                                    @{
+                                        subtotal = subtotal + customerInvoice.SubtoTotal;
+
+                                    }
+                                    <td>
+                                        <a asp-action="Details" asp-route-id="@customerInvoice.Id" class="btn btn-info">Details</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Name</th>
+                                <th>Date</th>
+                                <th>SubTotal:@subtotal</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+        </div><!-- /.col -->
+    </div>
+</section>
+
+
+@section scripts{
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+    </script>
+}

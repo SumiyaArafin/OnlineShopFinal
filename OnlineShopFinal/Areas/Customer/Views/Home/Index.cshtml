@@ -1,0 +1,408 @@
+﻿@*@using OnlineShopFinal.Models
+    @model List<Product>*@
+
+@using OnlineShopFinal.Models
+@model IndexVM
+@{
+    ViewData["Title"] = "Home Page";
+
+    ICollection<Order> newOrder = ViewBag.NewOrder;
+    ICollection<Product> totalProducts = ViewBag.TotalProducts;
+    ICollection<ApplicationUser> totalCustomer = ViewBag.TotalCustomer;
+    ICollection<Category> totalCategory = ViewBag.TotalCategory;
+}
+
+<br />
+@{
+    if (User.IsInRole("Admin"))
+    {
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                Dashboard
+                <small>Control panel</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a asp-area="Customer" asp-controller="Home" asp-action="Index"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li class="active">Dashboard</li>
+            </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <!-- Small boxes (Stat box) -->
+            <div class="row">
+                <div class="col-lg-3 col-xs-6">
+                    <!-- small box -->
+                    <div class="small-box bg-aqua">
+                        <div class="inner">
+                            <h3>@newOrder.Count()</h3>
+                            <p>New Orders</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-bag"></i>
+                        </div>
+                        <a asp-area="Customer" asp-controller="OrderDetails" asp-action="Index" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div><!-- ./col -->
+                <div class="col-lg-3 col-xs-6">
+                    <!-- small box -->
+                    <div class="small-box bg-green">
+                        <div class="inner">
+                            <h3>@totalProducts.Count()</h3>
+                            <p>Products</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-stats-bars"></i>
+                        </div>
+                        <a asp-area="Admin" asp-controller="Product" asp-action="Index" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div><!-- ./col -->
+                <div class="col-lg-3 col-xs-6">
+                    <!-- small box -->
+                    <div class="small-box bg-yellow">
+                        <div class="inner">
+                            <h3>@totalCustomer.Count()</h3>
+                            <p>Customer</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-person-add"></i>
+                        </div>
+                        <a asp-area="Customer" asp-controller="User" asp-action="Index" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div><!-- ./col -->
+                <div class="col-lg-3 col-xs-6">
+                    <!-- small box -->
+                    <div class="small-box bg-red">
+                        <div class="inner">
+                            <h3>@totalCategory.Count()</h3>
+                            <p>Category</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-pie-graph"></i>
+                        </div>
+                        <a asp-area="Admin" asp-controller="Category" asp-action="Index" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div><!-- ./col -->
+            </div><!-- /.row -->
+        </section><!-- /.content -->
+    }
+    else if (User.IsInRole("Staff"))
+    {
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                Dashboard
+                <small>Control panel</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a asp-area="Customer" asp-controller="Home" asp-action="Index"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li class="active">Dashboard</li>
+            </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <!-- Small boxes (Stat box) -->
+            <div class="row">
+                <div class="col-lg-3 col-xs-6">
+                    <!-- small box -->
+                    <div class="small-box bg-aqua">
+                        <div class="inner">
+                            <h3>@newOrder.Count()</h3>
+                            <p>New Orders</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-bag"></i>
+                        </div>
+                        <a asp-area="Customer" asp-controller="OrderDetails" asp-action="Index" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div><!-- ./col -->
+                <div class="col-lg-3 col-xs-6">
+                    <!-- small box -->
+                    <div class="small-box bg-green">
+                        <div class="inner">
+                            <h3>@totalProducts.Count()</h3>
+                            <p>Products</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-stats-bars"></i>
+                        </div>
+                        <a asp-area="Admin" asp-controller="Product" asp-action="Index" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div><!-- ./col -->
+                <div class="col-lg-3 col-xs-6">
+                    <!-- small box -->
+                    <div class="small-box bg-yellow">
+                        <div class="inner">
+                            <h3>@totalCustomer.Count()</h3>
+                            <p>Customer</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-person-add"></i>
+                        </div>
+                        <a asp-area="Customer" asp-controller="User" asp-action="Index" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div><!-- ./col -->
+                <div class="col-lg-3 col-xs-6">
+                    <!-- small box -->
+                    <div class="small-box bg-red">
+                        <div class="inner">
+                            <h3>@totalCategory.Count()</h3>
+                            <p>Category</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-pie-graph"></i>
+                        </div>
+                        <a asp-area="Admin" asp-controller="Category" asp-action="Index" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div><!-- ./col -->
+            </div><!-- /.row -->
+        </section><!-- /.content -->
+    }
+    else
+    {
+        int count1 = 0;
+        int count2 = 0;
+<head>
+    <link href="~/lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <script src="~/lib/jquery/jquery.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="~/css/style.css">
+
+</head>
+<body>
+    
+    <div class="header" style="background: radial-gradient(#fff, #ffd6d6);margin-top:-24px;">
+        <div class="container" style="margin-top:0px">
+            <div class="row carousel-holder" style="margin-top: -30px">
+                <div class="col-md-12">
+                    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                        </ol>
+                        <div class="carousel-inner " >
+                            <div class="item active">
+
+                             
+                               
+                                <img class="slide-image" src="~/images/DefaultImages/new.jpg"  />
+                            </div>
+                            <div class="item">
+                                <img class="slide-image" src="~/images/DefaultImages/new-banner.jpg"/>
+                              
+                              
+                            </div>
+                            <div class="item">
+                               
+                                <img class="slide-image" src="~/images/DefaultImages/pexels-andrea-piacquadio-972937.jpg" />
+                            </div>
+                        </div>
+                        <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left"></span>
+                        </a>
+                        <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-----Featured Categories ----->
+
+    <!-----Featured Products ----->
+    <div class="small-container">
+        <h2 class="title">Featured Products</h2>
+        <div class="row">
+
+            @foreach (var product in Model.PurchaseOrderLineItems)
+            {
+                if (count1 < 4)
+                {
+                    count1 = count1 + 1;
+
+                    <div class="col-4">
+
+
+                        <a asp-area="Customer" asp-action="Details" asp-controller="Home" asp-route-id="@product.Id">
+                            @if (product.Product.Image == null)
+                            {
+                                <img src="~/assets/img/shop/No_Image_Avail.png" />
+                            }
+                            else
+                            {
+                                <img src="/@product.Product.Image" alt="@product.Product.Image" />
+                            }
+                        </a>
+
+                        <h4>@product.Product.Name</h4>
+                        <div class="rating">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                        <p>$@product.UnitPrice</p>
+                    </div>
+
+
+                }
+
+            }
+
+        </div>
+        <a asp-area="Customer" asp-controller="Home" asp-action="Shop" class="view-more-btn ">View More</a>
+        <!-------Latest Products------->
+        <h2 class="title">Latest Products</h2>
+        <div class="row">
+
+            @foreach (var product in Model.LatestProducts)
+            {
+                if (count2 < 8)
+                {
+                    count2 = count2 + 1;
+
+                    <div class="col-4">
+
+                        <a asp-area="Customer" asp-action="Details" asp-controller="Home" asp-route-id="@product.Id">
+                            @if (product.Product.Image == null)
+                            {
+                                <img src="~/assets/img/shop/No_Image_Avail.png" />
+                            }
+                            else
+                            {
+                                <img src="~/@product.Product.Image" alt="@product.Product.Image" />
+                            }
+                        </a>
+
+                        <h4>@product.Product.Name</h4>
+                        <div class="rating">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                        <p>$@product.UnitPrice</p>
+                    </div>
+
+                }
+            }
+        </div>
+    </div>
+    <!------Offer--------->
+    @foreach (var product in Model.FrontPageElementss)
+    {
+        <div class="offer">
+            <div class="small-container">
+                <div class="row">
+                    <div class="col-2">
+                        <img src="@product.Image" alt="exclusive-Image" class="offer-img">
+                    </div>
+                    <div class="col-2">
+                        <p>@product.Description</p>
+                        <h1>@product.Name</h1>
+                        <small>@product.Description</small>
+                        <a href="" class="btn">Buy Now &#8594;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    <!--------Testimonial---------->
+    <div class="testimonial">
+        <div class="small-container">
+            <div class="row">
+                <div class="col-3">
+                    <i class="fa fa-quote-left"></i>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero expedita atque eius. Nam facilis, reprehenderit architecto inventore facere labore illum, vero doloribus maiores ducimus sit autem, et doloremque repudiandae, officiis.</p>
+                    <div class="rating">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star-half"></i>
+                    </div>
+                    <img src="~/images/DefaultImages/user-1.png" alt="user-1">
+                    <h3>Sean Parker</h3>
+                </div>
+                <div class="col-3">
+                    <i class="fa fa-quote-left"></i>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero expedita atque eius. Nam facilis, reprehenderit architecto inventore facere labore illum, vero doloribus maiores ducimus sit autem, et doloremque repudiandae, officiis.</p>
+                    <div class="rating">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star-half"></i>
+                    </div>
+                    <img src="~/images/DefaultImages/user-2.png" alt="user-1">
+                    <h3>Mike Smith</h3>
+                </div>
+                <div class="col-3">
+                    <i class="fa fa-quote-left"></i>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero expedita atque eius. Nam facilis, reprehenderit architecto inventore facere labore illum, vero doloribus maiores ducimus sit autem, et doloremque repudiandae, officiis.</p>
+                    <div class="rating">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star-half"></i>
+                    </div>
+                    <img src="~/images/DefaultImages/user-3.png" alt="user-1">
+                    <h3>Mabel Joe</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--------brands-------->
+    <div class="brands">
+        <div class="small-container">
+            <div class="row">
+                <div class="col-5">
+                    <img src="~/images/DefaultImages/logo-godrej.png" alt="brand-logo">
+                </div>
+                <div class="col-5">
+                    <img src="~/images/DefaultImages/logo-oppo.png" alt="brand-logo">
+                </div>
+                <div class="col-5">
+                    <img src="~/images/DefaultImages/logo-coca-cola.png" alt="brand-logo">
+                </div>
+                <div class="col-5">
+                    <img src="~/images/DefaultImages/logo-paypal.png" alt="brand-logo">
+                </div>
+                <div class="col-5">
+                    <img src="~/images/DefaultImages/logo-philips.png" alt="brand-logo">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-------------Js for toggle menu----------------->
+    <script>
+        var MenuItems = document.getElementById("MenuItems");
+        MenuItems.style.maxHeight = "0px";
+        function menutoggle() {
+            if (MenuItems.style.maxHeight == "0px") {
+                MenuItems.style.maxHeight = "200px";
+            }
+            else {
+                MenuItems.style.maxHeight = "0px";
+            }
+        }
+    </script>
+</body>
+
+    }
+}
+
+
+
+
+
+
+
+

@@ -1,0 +1,129 @@
+﻿
+
+
+@model OnlineShopFinal.ViewModel.ProductViewModel
+@using OnlineShopFinal.Extensions
+<script src="~/lib/jquery/dist/jquery.js"></script>
+
+<script type="text/javascript">
+            $(document).ready(function () {
+                $("#CountryList").change(function () {
+                    $("#StateList").empty();
+                    $.ajax({
+                        type: 'GET',
+                        url: '@Url.Action("LoadState")',
+                        data: { id: $("#CountryList").val() },
+                        success: function (states) {
+                            $("#StateList").append('<option value="' + -1 + '">' + "Select State" + '</option >');
+                            $.each(states, function (i, state) {
+                                $("#StateList").append('<option value="' + state.value + '">' + state.text + '</option >');
+                            });
+                        },
+                        error: function (ex) {
+                            alert('Failed to retrive states.' + ex);
+                        }
+                    });
+                    return false;
+                })
+            });
+</script>
+
+
+
+
+
+<form method="post" enctype="multipart/form-data" asp-action="AddEditProduct">
+
+    <div class="modal fade" id="addEmployee">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="addEmployeeLabel">Add Product</h4>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>x</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label asp-for="Name"></label>
+
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="CategoryId"></label>
+
+                        <select asp-for="CategoryId" asp-items="@Model.CategoryList" class="form-control" id="CountryList"></select>
+                        <span asp-validation-for="CategoryId" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="SubCategoryId"></label>
+
+                        <select asp-for="SubCategoryId" asp-items="@Model.SubCategoryList" class="form-control" id="StateList"></select>
+
+                        <span asp-validation-for="CategoryId" class="text-danger"></span>
+                    </div>
+
+                   
+
+                    <div class="form-group">
+                        <label asp-for="ProductColor"></label>
+
+                        <input asp-for="ProductColor" class="form-control" />
+                        <span asp-validation-for="ProductColor" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="UnitId"></label>
+
+                        <select asp-for="UnitId" asp-items="@Model.UnitList" class="form-control"></select>
+                        <span asp-validation-for="UnitId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Size"></label>
+
+                        <input asp-for="Size" class="form-control" />
+                        <span asp-validation-for="Size" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SizeUnite"></label>
+
+                        <input asp-for="SizeUnite" class="form-control" />
+                        <span asp-validation-for="SizeUnite" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Description"></label>
+
+                        <input asp-for="Description" class="form-control" />
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Image"></label>
+
+                        <input type="file" class="form-control" asp-for="Image" multiple />
+
+                    </div>
+                    @if (Model.Id <= 0)
+                    {
+                        <label asp-for="Images"></label>
+
+                        <input type="file" class="form-control" asp-for="Images" multiple />
+
+                    }
+                </div>
+
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-primary" value="Update" />
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>
+@section Scripts{
+    @{ await Html.RenderPartialAsync(partialViewName: "_ValidationScriptsPartial"); }
+}

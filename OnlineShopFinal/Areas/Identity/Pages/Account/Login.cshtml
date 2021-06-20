@@ -1,0 +1,105 @@
+﻿@page
+@model LoginModel
+<!doctype html>
+<html class="no-js" lang="zxx">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Hidro -  Minimal eCommerce HTML Template</title>
+    <meta name="description" content="Hidro is a eCommerce Boostrap HTML Templates. It is one of the best minimal ecommerce templates. you can use it for minimal shop.">
+    <meta name="keywords" content="HTML5, flowers, cookery, sport, bootstrap, interior, fashion, shopping, electronics, clothes, digital, responsive, Technology, furniture,minimal, minimal shop">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <!-- Place favicon.ico in the root directory -->
+    <!-- all css here -->
+   
+</head>
+<body>
+
+    <!--[if lt IE 8]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <div class="small-container ">
+        <div>
+            <h2 class="page-title" >login page</h2>
+            <span class="Login-Details">Please login using account detail bellow</span>
+        </div>
+
+
+        <!-- breadcrumb end -->
+        <!-- register-area start -->
+
+       
+        
+
+        <div class="login-form">
+            <form id="account" method="post">
+                <input asp-for="Input.Email" placeholder="Username">
+                <input asp-for="Input.Password" type="password" placeholder="Password">
+                <div class="button-box">
+                    <div class="login-toggle-btn">
+
+                        <label class="rememberme-check"  asp-for="Input.RememberMe">
+
+                            <input   style="display:inline-block; height: 12px;width: 20px; margin-top:4px;"  asp-for="Input.RememberMe" />
+                            @Html.DisplayNameFor(m => m.Input.RememberMe)
+                        </label>
+                        <a class="forgotPassword" id="forgot-password" asp-page="./ForgotPassword">Forgot Password?</a>
+                    </div>
+                    <button type="submit" class="login-btn">Login</button>
+                </div>
+
+            </form>
+        </div>
+        <div >
+            <section>
+                @*<h4>Use another service to log in.</h4>*@
+                <hr />
+                @{
+                    if ((Model.ExternalLogins?.Count ?? 0) == 0)
+                    {
+                        <div>
+                            @*<p>
+                                There are no external authentication services configured. See <a href="https://go.microsoft.com/fwlink/?LinkID=532715">this article</a>
+                                for details on setting up this ASP.NET application to support logging in via external services.
+                            </p>*@
+                        </div>
+                    }
+                    else
+                    {
+                        <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                            <div>
+                                <p>
+                                    @foreach (var provider in Model.ExternalLogins)
+                                    {
+                                        <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                                    }
+                                </p>
+                            </div>
+                        </form>
+                    }
+                }
+            </section>
+        </div>
+    </div>      
+                       
+        <!-- register-area end -->
+        <!-- Modal -->
+        <!-- Modal end -->
+  
+
+    <!-- all js here -->
+    <script src="~/assets/js/vendor/jquery-1.12.0.min.js"></script>
+    <script src="~/assets/js/bootstrap.min.js"></script>
+    <script src="~/assets/js/jquery.meanmenu.js"></script>
+    <script src="~/assets/js/isotope.pkgd.min.js"></script>
+    <script src="~/assets/js/imagesloaded.pkgd.min.js"></script>
+    <script src="~/assets/js/jquery.counterup.min.js"></script>
+    <script src="~/assets/js/waypoints.min.js"></script>
+    <script src="~/assets/js/ajax-mail.js"></script>
+    <script src="~/assets/js/owl.carousel.min.js"></script>
+    <script src="~/assets/js/plugins.js"></script>
+    <script src="~/assets/js/main.js"></script>
+</body>
+</html>

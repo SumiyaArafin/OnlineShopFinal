@@ -1,0 +1,85 @@
+﻿
+
+@model OnlineShopFinal.ViewModel.FirstBlogViewModel
+
+@{ ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml"; }
+<script src="~/lib/jquery/dist/jquery.js"></script>
+
+
+
+
+<form method="post" enctype="multipart/form-data" asp-action="EditFirstBlog">
+
+
+    <div class="form-group">
+        <label asp-for="Name" class="col-md-3 control-label"></label>
+        <div class="col-md-5">
+            <input asp-for="Name" class="form-control" autofocus="" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="BlogHeader" class="col-md-3 control-label"></label>
+        <div class="col-md-5">
+            <textarea asp-for="BlogHeader" class="form-control"></textarea>
+            
+            <span asp-validation-for="BlogHeader" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="BlogDetails" class="col-md-3 control-label"></label>
+        <div class="col-md-5">
+            <textarea asp-for="BlogDetails" class="form-control"></textarea>
+           
+            <span asp-validation-for="BlogDetails" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="BlockQuote" class="col-md-3 control-label"></label>
+        <div class="col-md-5">
+            <textarea asp-for="BlockQuote" class="form-control"></textarea>
+            
+            <span asp-validation-for="BlockQuote" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="BlockQuoteDetails" class="col-md-3 control-label"></label>
+        <div class="col-md-5">
+            <textarea asp-for="BlockQuoteDetails" class="form-control"></textarea>
+            <span asp-validation-for="BlockQuoteDetails" class="text-danger"></span>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label class="col-md-3 control-label">Image</label>
+        <div class="col-md-5">
+            <input type="file" class="form-control" asp-for="Image" multiple />
+        </div>
+    </div>
+
+
+
+    <br />
+    <div class="form-group">
+        <input type="submit" class="btn btn-primary" value="Update" />
+        <a asp-action="Index" class="btn btn-success">Back</a>
+    </div>
+</form>
+
+
+
+
+<script>
+    $.validator.unobtrusive.parse("#frm");
+</script>
+
+
+
+
+
+
+

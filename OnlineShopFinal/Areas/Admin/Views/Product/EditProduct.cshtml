@@ -1,0 +1,170 @@
+﻿@model OnlineShopFinal.ViewModel.ProductViewModel
+@using OnlineShopFinal.Extensions
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<script src="~/lib/jquery/dist/jquery.js"></script>
+
+
+
+<script type="text/javascript">
+            $(document).ready(function () {
+                $("#CountryList").change(function () {
+                    $("#StateList").empty();
+                    $.ajax({
+                        type: 'GET',
+                        url: '@Url.Action("LoadState")',
+                        data: { id: $("#CountryList").val() },
+                        success: function (states) {
+                            $("#StateList").append('<option value="' + -1 + '">' + "Select State" + '</option >');
+                            $.each(states, function (i, state) {
+                                $("#StateList").append('<option value="' + state.value + '">' + state.text + '</option >');
+                            });
+                        },
+                        error: function (ex) {
+                            alert('Failed to retrive states.' + ex);
+                        }
+                    });
+                    return false;
+                })
+            });
+</script>
+
+
+<form method="post" enctype="multipart/form-data" asp-action="EditProduct">
+
+  
+    <div class="form-group">
+        <label asp-for="Name" class="col-md-3 control-label"></label>
+        <div class="col-md-5">
+            <input asp-for="Name" class="form-control" autofocus="" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="AvailablePrice" class="col-md-3 control-label"></label>
+        <div class="col-md-5">
+            <input asp-for="AvailablePrice" class="form-control" autofocus="" />
+            <span asp-validation-for="AvailablePrice" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PreviousPrice" class="col-md-3 control-label"></label>
+        <div class="col-md-5">
+            <input asp-for="PreviousPrice" class="form-control" autofocus="" />
+            <span asp-validation-for="PreviousPrice" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="ProductColor" class="col-md-3 control-label"></label>
+        <div class="col-md-5">
+            <input asp-for="ProductColor" class="form-control" autofocus="" />
+            <span asp-validation-for="ProductColor" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Quantity" class="col-md-3 control-label"></label>
+        <div class="col-md-5">
+            <input asp-for="Quantity" class="form-control" autofocus="" />
+            <span asp-validation-for="Quantity" class="text-danger"></span>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label asp-for="CategoryId" class="col-md-3 control-label"></label>
+        <div class="col-md-5">
+
+            <select asp-for="CategoryId" asp-items="@Model.CategoryList" class="form-control" id="CountryList"></select>
+            <span asp-validation-for="CategoryId" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="SubCategoryId" class="col-md-3 control-label"></label>
+        <div class="col-md-5">
+            <select asp-for="SubCategoryId" asp-items="@Model.SubCategoryList" class="form-control" id="StateList"></select>
+            <span asp-validation-for="SubCategoryId" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="UnitId" class="col-md-3 control-label"></label>
+        <div class="col-md-5">
+            <select asp-for="UnitId" asp-items="@Model.UnitList" class="form-control"></select>
+            <span asp-validation-for="UnitId" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Size" class="col-md-3 control-label"></label>
+        <div class="col-md-5">
+            <input asp-for="Size" class="form-control" autofocus="" />
+            <span asp-validation-for="Size" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="SizeUnite" class="col-md-3 control-label"></label>
+        <div class="col-md-5">
+            <input asp-for="SizeUnite" class="form-control" autofocus="" />
+            <span asp-validation-for="SizeUnite" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Date" class="col-md-3 control-label"></label>
+        <div class="col-md-5">
+            <input asp-for="Date" class="form-control" autofocus="" />
+            <span asp-validation-for="Date" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description" class="col-md-3 control-label"></label>
+        <div class="col-md-5">
+            <textarea asp-for="Description" class="form-control"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-3 control-label">Image</label>
+        <div class="col-md-5">
+            <input type="file" class="form-control" asp-for="Image" multiple />
+        </div>
+    </div>
+
+
+    @if (Model.Id <= 0)
+    {
+        <div class="form-group">
+            <label class="col-md-3 control-label">Product Images</label>
+            <div class="col-md-5">
+                <input type="file" class="form-control" asp-for="Images" multiple />
+            </div>
+        </div>
+
+    }
+    <br />
+    <div class="form-group">
+        <input type="submit" class="btn btn-primary" value="Update" />
+        <a asp-action="Index" class="btn btn-success">Back</a>
+    </div>
+</form>
+   
+
+
+
+<script>
+    $.validator.unobtrusive.parse("#frm");
+</script>
+
+
+
+
+
+
+

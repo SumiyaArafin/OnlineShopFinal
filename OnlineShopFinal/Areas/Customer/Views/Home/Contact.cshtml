@@ -1,0 +1,154 @@
+﻿<!doctype html>
+<html class="no-js" lang="zxx">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Hidro -  Minimal eCommerce HTML Template</title>
+    <meta name="description" content="Hidro is a eCommerce Boostrap HTML Templates. It is one of the best minimal ecommerce templates. you can use it for minimal shop.">
+    <meta name="keywords" content="HTML5, flowers, cookery, sport, bootstrap, interior, fashion, shopping, electronics, clothes, digital, responsive, Technology, furniture,minimal, minimal shop">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <!-- Place favicon.ico in the root directory -->
+    <!-- all css here -->
+    <link rel="stylesheet" href="~/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/assets/css/pe-icon-7-stroke.css">
+    <link rel="stylesheet" href="~/assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/assets/css/meanmenu.css">
+    <link rel="stylesheet" href="~/assets/css/shortcodes/shortcode.css">
+    <link rel="stylesheet" href="~/assets/css/style.css">
+    <link rel="stylesheet" href="~/assets/css/responsive.css">
+    <script src="~/assets/js/vendor/modernizr-2.8.3.min.js"></script>
+</head>
+<body>
+    <!--[if lt IE 8]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <!-- Add your site or application content here -->
+    <div class="waraper-style">
+
+
+        <!-- breadcrumb start -->
+        <div class="breadcrumb-area gray-bg">
+            <div class="container text-center">
+                <div class="breadcrumb-stye ptb-100">
+                    <h2 class="page-title">contact us</h2>
+                    <ul>
+                        <li><a asp-area="Customer" asp-controller="Home" asp-action="Index">home</a></li>
+                        <li class="active">contact us</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- breadcrumb end -->
+        <!-- contact-area start -->
+        <div class="contact-area ptb-100">
+            <div class="container map-contact">
+                <div class="row">
+                    <div class="col-lg-7 col-md-7 col-sm-12 text-center">
+                        <div class="contact-from gray-bg">
+                            <form id="contact-form" action="mail.php" method="post">
+                                <input name="name" type="text" placeholder="Name">
+                                <input name="email" type="email" placeholder="Email">
+                                <textarea name="message" placeholder="Your message"></textarea>
+                                <button class="submit" type="submit">Send Massage</button>
+                            </form>
+                            <p class="form-messege"></p>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 col-md-5 col-sm-12">
+                        <div class="communication contact-from">
+                            <div class="single-communication">
+                                <div class="communication-icon">
+                                    <i class="fa fa-home" aria-hidden="true"></i>
+                                </div>
+                                <div class="communication-text">
+                                    <h3>Address:</h3>
+                                    <p>Miata 309 S Main St,Stafford, KS 67578</p>
+                                </div>
+                            </div>
+                            <div class="single-communication">
+                                <div class="communication-icon">
+                                    <i class="fa fa-phone" aria-hidden="true"></i>
+                                </div>
+                                <div class="communication-text">
+                                    <h3>Phone:</h3>
+                                    <p>0123 456 789   -   15 2368 4597</p>
+                                </div>
+                            </div>
+                            <div class="single-communication">
+                                <div class="communication-icon">
+                                    <i class="fa fa-fax" aria-hidden="true"></i>
+                                </div>
+                                <div class="communication-text">
+                                    <h3>Fax:</h3>
+                                    <p>0123 456 789   -   15 2368 4597</p>
+                                </div>
+                            </div>
+                            <div class="single-communication">
+                                <div class="communication-icon">
+                                    <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                                </div>
+                                <div class="communication-text">
+                                    <h3>Email:</h3>
+                                    <p><a href="#">info@example.com</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="contact-map pb-100">
+            <div class="container">
+                <div id="hastech"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- all js here -->
+    <script src="~/assets/js/vendor/jquery-1.12.0.min.js"></script>
+    <script src="~/assets/js/bootstrap.min.js"></script>
+    <script src="~/assets/js/jquery.meanmenu.js"></script>
+    <script src="~/assets/js/isotope.pkgd.min.js"></script>
+    <script src="~/assets/js/imagesloaded.pkgd.min.js"></script>
+    <script src="~/assets/js/jquery.counterup.min.js"></script>
+    <script src="~/assets/js/waypoints.min.js"></script>
+    <script src="~/assets/js/ajax-mail.js"></script>
+    <script src="~/assets/js/owl.carousel.min.js"></script>
+    <script src="~/assets/js/plugins.js"></script>
+    <!-- google map api -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_qDiT4MyM7IxaGPbQyLnMjVUsJck02N0"></script>
+    <script>
+        var myCenter = new google.maps.LatLng(30.249796, -97.754667);
+        function initialize() {
+            var mapProp = {
+                center: myCenter,
+                scrollwheel: false,
+                zoom: 15,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            var map = new google.maps.Map(document.getElementById("hastech"), mapProp);
+            var marker = new google.maps.Marker({
+                position: myCenter,
+                animation: google.maps.Animation.BOUNCE,
+                icon: 'assets/img/map-marker.png',
+                map: map,
+            });
+            var styles = [
+                {
+                    stylers: [
+                        { hue: "#c5c5c5" },
+                        { saturation: -100 }
+                    ]
+                },
+            ];
+            map.setOptions({ styles: styles });
+            marker.setMap(map);
+        }
+        google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+    <script src="assets/js/main.js"></script>
+</body>
+</html>

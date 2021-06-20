@@ -1,0 +1,67 @@
+﻿@model IEnumerable<OnlineShopFinal.Models.Employee>
+  
+@{
+    int count1 = 1;
+}
+<div class="col-md-8 offset-md-2">
+
+    @{
+            if (Model.ToList().Count <= 0)
+            {
+                <h1>No Employee Added Yet</h1>
+            }
+            else
+            {
+                <table id="myTable" class="table table-responsive table-hover">
+                    <thead>
+                        <tr>
+                            <td>#</td>
+                            <td>Frist Name</td>
+                            <td>Last Name</td>
+                            <td>Contact No</td>
+                            <td>Email</td>
+                            <td>Employee Type</td>
+                            <td>Emergency Contact No</td>
+                            <td>Designation</td>
+                            <td>Salary</td>
+                            <td>Joining Date</td>
+                            <td>Employee Status</td>
+                            <td>Action</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                           
+                                foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@count1</td>
+                                        <td>@item.FristName</td>
+                                        <td>@item.LastName</td>
+                                        <td>@item.ContactNo</td>
+                                        <td>@item.Email</td>
+                                        <td>@item.EmployeeType</td>
+                                        <td>@item.EmergencyContactNo</td>
+                                        <td>@item.Designation.Name</td>
+                                        <td>@item.Salary</td>
+                                        <td>@item.JoiningDate</td>
+                                        <td>@item.EmployeeStatus</td>
+                                        <td>
+                                        <td>
+                                            <a onclick="showInPopup('@Url.Action("AddOrEdit","Employees",new { id=item.Id},Context.Request.Scheme)','Update Employees' )" class="btn btn-sm btn-info text-white"><i class="fas fa-random"></i></a>
+                                            <a onclick="Delete('@Url.Action("Delete","Employees",new { id=item.Id},Context.Request.Scheme)','Delete Employees' )" class="btn btn-sm btn-danger text-white"><i class="fas fa-trash-alt"></i></a>
+                                        </td>
+                                    </tr>
+                                count1++;
+                            }
+
+                            }
+                        
+                    </tbody>
+                </table>
+
+
+            }
+        }
+
+</div>

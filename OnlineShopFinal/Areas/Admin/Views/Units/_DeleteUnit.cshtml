@@ -1,0 +1,12 @@
+﻿@using OnlineShopFinal.BootstrapModal
+@using OnlineShopFinal.Code
+@using OnlineShopFinal.Models;
+<form asp-action="DeleteUnit" role="form">
+    @Html.Partial("_ModalHeader", new ModalHeader { Heading = "Are you sure?" })
+
+    <div class="modal-body form-horizontal">
+        Are you want to delete <strong>@Model?</strong>
+    </div>
+
+    @Html.Partial("_ModalFooter", new ModalFooter { SubmitButtonText = "Delete" })
+</form>

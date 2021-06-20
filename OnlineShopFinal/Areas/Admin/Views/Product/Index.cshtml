@@ -1,0 +1,272 @@
+﻿@model IEnumerable<OnlineShopFinal.ViewModel.ProductListViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<script src="~/lib/jquery/jquery.min.js"></script>
+
+
+
+<div class="col-md-2">
+    <button type="button" class="btn btn-info" data-toggle="ajax-modal" data-target="#addEmployee" data-url="@Url.Action("AddEditProduct")"><i class="fas fa-plus"></i>&nbsp;Add Product</button>
+    <i class="glyphicon glyphicon-plus"></i>
+
+</div>
+
+<div id="placeHolderHere"></div>
+
+
+<hr />
+@{
+    if (Model.ToList().Count <= 0)
+    {
+        <h1>No Product Added Yet</h1>
+    }
+    else
+    {
+
+
+        <section class="content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box">
+                        <div class="box-body">
+                            <table id="myTable" class="table table-responsive table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Name</th>
+                                        <th>Basic Info</th>
+                                        <th>Item Info</th>
+                                        <th>Describe</th>
+                                        <th>Status</th>
+                                        <th>Photo</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        int count1 = 1;
+                                        foreach (var product in Model)
+                                        {
+                                            <tr>
+                                                <td>@count1</td>
+                                                <td>
+                                                    @product.Name <br />
+
+                                                </td>
+                                                <td>
+                                                    Category : @product.CategoryName <br />
+                                                    SubCategory : @product.SubCategoryName <br />
+                                                </td>
+                                                <td>
+                                                    AvaiblePrice : @product.AvailablePrice@product.SizeUnite <br />
+                                                    PreviousPrice : @product.PreviousPrice@product.SizeUnite <br />
+                                                </td>
+                                                <td>
+                                                    Quantity : @product.Quantity <br />
+                                                    Discription : @product.Description <br />
+                                                </td>
+                                                <td>
+                                                    Size:  @product.Size@product.UnitName<br />
+                                                    Color: @product.ProductColor<br />
+                                                </td>
+                                                <td>
+                                                    <a asp-area="Admin" asp-action="GetProdutcsImages" asp-route-id="@product.Id">@product.TotalImage</a>
+                                                </td>
+
+                                                <td>
+                                                    <a asp-action="EditProduct" class="btn btn-primary" asp-route-id="@product.Id"><i class="fas fa-edit"></i></a>
+
+                                                    <a href="#" id="showModal" class="btn btn-danger" onclick="Confirm(@product.Id)"><i class="fas fa-trash"></i></a>
+                                                </td>
+                                            </tr>
+                                            count1++;
+                                        }
+                                    }
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Name</th>
+                                        <th>Basic Info</th>
+                                        <th>Item Info</th>
+                                        <th>Describe</th>
+                                        <th>Status</th>
+                                        <th>Photo</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div><!-- /.box-body -->
+                    </div><!-- /.box -->
+                </div><!-- /.col -->
+            </div>
+        </section>
+    }
+}
+
+
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+    </script>
+}
+
+
+
+@*    @model IEnumerable<OnlineShopFinal.ViewModel.ProductListViewModel>
+    @{
+        ViewData["Title"] = "Index";
+
+    }
+
+    <br />
+    <br />
+    <script src="~/lib/jquery/jquery.min.js"></script>
+
+
+
+    <div class="row">
+        <div class="col-4">
+            <h2 class="text-info"> Product  List</h2>
+        </div>
+        <div class="col-6 text-right">
+            <button type="button" class="btn btn-info" data-toggle="ajax-modal" data-target="#addEmployee" data-url="@Url.Action("AddEditProduct")"><i class="fas fa-plus"></i>&nbsp;Add Product</button>
+
+        </div>
+    </div>
+
+    <div id="placeHolderHere"></div>
+
+    <br />
+    <div class="col-9">
+        <table id="myTable" class="table table-striped border">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Product</th>
+                    <th>Category</th>
+                    <th>SubCategory </th>
+                    <th>PrivicePrice</th>
+                    <th>AvailablePrice</th>
+                    <th>productColor</th>
+                    <th>Quantity</th>
+                    <th>Size</th>
+
+                    <th>Date</th>
+                    <th>Description</th>
+
+                    <th>Total Images</th>
+
+                    <th>Action</th>
+                    <th></th>
+
+
+                </tr>
+            </thead>
+
+            <tbody>
+                @{
+                    int count = 1;
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@count</td>
+
+                            <td>@item.Name</td>
+                            <td>@item.CategoryName</td>
+                            <td>@item.SubCategoryName</td>
+                            <td>@item.PreviousPrice@item.SizeUnite</td>
+                            <td>@item.AvailablePrice@item.SizeUnite</td>
+                            <td>@item.ProductColor</td>
+                            <td>@item.Quantity</td>
+                            <td>@item.Size@item.UnitName</td>
+                            <td>@item.Date.ToString("MM/dd/yy")</td>
+                            <td>@item.Description</td>
+
+
+                            <td>
+                                <a asp-area="Admin" asp-action="GetProdutcsImages" asp-route-id="@item.Id">@item.TotalImage</a>
+                            </td>
+
+                            <td style="width:150px">
+                                <div class="btn-group">
+
+                                    <a asp-action="AddEditProduct" class="btn btn-primary" asp-route-id="@item.Id"><i class="fas fa-edit"></i></a>
+                                    <a href="#" id="showModal" class="btn btn-danger" onclick="Confirm(@item.Id)"><i class="fas fa-trash"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+
+                        count++;
+                    }
+                }
+            </tbody>
+
+        </table>
+    </div>*@
+
+
+<div class="modal fade" id="deleteModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title"> Confirm</h2>
+            </div>
+            <div class="modal-body">
+                <h4>Are You sure you want to delete this Category?</h4>
+            </div>
+            <div class="modal-footer">
+                <div class="btn-group">
+                    <a href="#" id="btnDelete" class="btn btn-danger mr-3">Delete</a>
+                    <a href="#" id="btnCancelConfirm" class="btn btn-primary">Cancel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input type="hidden" id="supplierId" />
+
+<script>
+    $(document).ready(function () {
+
+
+        $("#btnCancelConfirm").click(function () {
+            window.location.href = "/Admin/Product/Index";
+        })
+        $("#btnDelete").click(function () {
+            var _id = $("#supplierId").val();
+            $.ajax({
+                type: "POST",
+                url: "/Admin/Product/Delete",
+                data: { id: _id },
+                success: function (result) {
+                    if (result) {
+                        $("#deleteModal").modal('hide');
+                        $("#supplierId").val(null);
+                        window.location.href = "/Admin/Product/Index";
+                    } else {
+                        alert("Something went wrong while processing your request");
+                    }
+
+                }
+            });
+        });
+
+
+    })
+
+    var Confirm = function (id) {
+        $("#supplierId").val(id);
+        $("#deleteModal").modal('show');
+
+    }
+
+</script>
+

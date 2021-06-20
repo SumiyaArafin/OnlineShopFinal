@@ -1,0 +1,60 @@
+﻿
+
+@model OnlineShopFinal.Models.ApplicationUser
+
+
+<!doctype html>
+<html class="no-js" lang="zxx">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Hidro -  Minimal eCommerce HTML Template</title>
+    <meta name="description" content="Hidro is a eCommerce Boostrap HTML Templates. It is one of the best minimal ecommerce templates. you can use it for minimal shop.">
+    <meta name="keywords" content="HTML5, flowers, cookery, sport, bootstrap, interior, fashion, shopping, electronics, clothes, digital, responsive, Technology, furniture,minimal, minimal shop">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+</head>
+<body>
+    <!--[if lt IE 8]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <!-- Add your site or application content here -->
+    <div class="small-container ">
+        <h2 class="page-title">register page</h2>
+        <span class="Register-Details">Please Register using account detail bellow</span>
+
+    </div>
+
+
+    <!-- breadcrumb end -->
+    <!-- register-area start -->
+    <div class="Register-form">
+        @if (TempData["Success"] != null)
+        {
+            <p class="alert alert-success" id="successMessage">@TempData["Success"]</p>
+        }
+
+        <form asp-action="Create" method="post" enctype="multipart/form-data">
+
+            <input asp-for="UserName" type="text" placeholder="Username">
+            <input asp-for="PasswordHash" type="password" placeholder="Password">
+            <input asp-for="FirstName" type="text" placeholder="First-Name">
+            <input asp-for="LastName" type="text" placeholder="Last-Name">
+            @*<input asp-for="CompanyName" type="text" placeholder="Company-Name">*@
+            <input asp-for="Address" type="text" placeholder="Address">
+            <input asp-for="TownOrCity" type="text" placeholder="Town / City">
+            <input asp-for="StateOrCountry" type="text" placeholder="State / Country">
+            <input asp-for="PostCodeOrZip" type="text" placeholder="PostCode / Zip">
+            <input asp-for="PhoneNumber" type="text" placeholder="Phone-Number">
+            <div class="button-box">
+                <button type="submit" class="Register-btn">Register</button>
+            </div>
+
+
+        </form>
+    </div>
+
+    
+</body>
+</html>

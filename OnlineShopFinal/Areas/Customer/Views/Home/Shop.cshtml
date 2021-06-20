@@ -1,0 +1,120 @@
+﻿
+
+@model cloudscribe.Pagination.Models.PagedResult<PurchaseOrderLineItem>
+
+@{
+    ViewData["Title"] = "Home Page";
+    ViewData["Controller"] = "Home";
+    ViewData["Action"] = "Shop";
+
+    ICollection<Order> newOrder = ViewBag.NewOrder;
+    ICollection<Product> totalProducts = ViewBag.TotalProducts;
+    ICollection<ApplicationUser> totalCustomer = ViewBag.TotalCustomer;
+    ICollection<Category> totalCategory = ViewBag.TotalCategory;
+
+}
+
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Hidro -  Minimal eCommerce HTML Template</title>
+    <meta name="description" content="Hidro is a eCommerce Boostrap HTML Templates. It is one of the best minimal ecommerce templates. you can use it for minimal shop.">
+    <meta name="keywords" content="HTML5, flowers, cookery, sport, bootstrap, interior, fashion, shopping, electronics, clothes, digital, responsive, Technology, furniture,minimal, minimal shop">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+   
+    <!-- Place favicon.ico in the root directory -->
+    <!-- all css here -->
+    <link rel="stylesheet" href="~/assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/css/style.css">
+   
+   
+    
+</head>
+
+<body>
+    <!--[if lt IE 8]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <!-- Add your site or application content here -->
+    <div class="waraper-style">
+        <header>
+            <div class="header-area">
+                <div class="container">
+                    <div class="row">
+
+
+                    </div>
+                    <div class="mobile-menu"></div>
+                </div>
+            </div>
+        </header>
+        <!-- header end -->
+        <!-- breadcrumb start -->
+        <div class="breadcrumb-area">
+            <div class=" text-center">
+                <div class="breadcrumb-stye gray-bg ptb-100">
+                    <h2 class="page-title">shop page</h2>
+
+                </div>
+            </div>
+        </div>
+        
+        <!-- breadcrumb end -->
+        <!-- shop area start -->
+        <div class="small-container">
+            <div class="row">
+
+                @foreach (var product in Model.Data)
+                {
+
+
+                    <div class="col-4">
+
+                        <input type="hidden" value="@product.Product.Id" />
+                        <a asp-area="Customer" asp-action="Details" asp-controller="Home" asp-route-id="@product.Id">
+                            @if (product.Product.Image == null)
+                            {
+                                <img src="~/assets/img/shop/No_Image_Avail.png" />
+                            }
+                            else
+                            {
+                                <img src="/@product.Product.Image" alt="@product.Product.Image" />
+                            }
+                        </a>
+
+                        <h4>@product.Product.Name</h4>
+                        <div class="rating">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                        <p>$@product.UnitPrice</p>
+                    </div>
+
+
+                }
+
+                <div>
+                    <partial name="_PaginationPartial" style="text-align:center;" view-data="ViewData" model="Model" />
+                </div>
+
+            </div>
+
+        </div>
+        <!-- shop area end -->
+
+
+    </div>
+    
+
+    <br />
+    <br />
+
+
+
+
+</body>

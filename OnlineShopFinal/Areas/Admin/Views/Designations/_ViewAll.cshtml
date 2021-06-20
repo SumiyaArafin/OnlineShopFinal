@@ -1,0 +1,49 @@
+﻿@model IEnumerable<OnlineShopFinal.Models.Designation>
+
+@{
+    int count1 = 1;
+}
+<div class="col-md-8 offset-md-2">
+
+    @{
+        if (Model.ToList().Count <= 0)
+        {
+            <h1>No Designation Added Yet</h1>
+        }
+        else
+        {
+            <table id="myTable" class="table table-responsive table-hover">
+                <thead>
+                    <tr>
+                        <td>#</td>
+                        <td> Name</td>                   
+                        <td> Salary</td>                   
+                        <td>Action</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@count1</td>
+                                    <td>@item.Name</td>
+                                    <td>@item.Salary</td>                               
+                                    <td>
+                                    <td>
+                                        <a onclick="showInPopup1('@Url.Action("AddOrEdit","Designations",new { id=item.Id},Context.Request.Scheme)','Update Designation' )" class="btn btn-sm btn-info text-white"><i class="fas fa-random"></i></a>
+                                        <a onclick="Delete('@Url.Action("Delete","Designations",new { id=item.Id},Context.Request.Scheme)','Delete Designation' )" class="btn btn-sm btn-danger text-white"><i class="fas fa-trash-alt"></i></a>
+                                    </td>
+                                </tr>
+                            count1++;
+                        }
+
+                    }
+                </tbody>
+            </table>
+
+
+        }
+    }
+
+</div>

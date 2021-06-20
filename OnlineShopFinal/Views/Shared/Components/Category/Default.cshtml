@@ -1,0 +1,22 @@
+﻿@model IEnumerable<OnlineShopFinal.Models.Category>
+@{
+    ViewData["Title"] = "Default";
+}
+
+    @*<ul class="nav navbar-nav">
+        @foreach (var item in Model)
+        {
+           <li class="nav-item">
+               <a class="nav-link text-dark" asp-area="Admin" asp-controller="Category" asp-action="GetCategoryDetails" asp-route-id="@item.Id">@item.Name</a>
+          </li>
+        }
+    </ul>*@
+
+<ul class="menu">
+    @foreach (var item in Model)
+    {
+        <li>
+        <a asp-area="Admin" asp-controller="Category" asp-action="GetCategoryDetails" asp-route-id="@item.Id">@item.Name</a>
+        </li>
+    }
+</ul>

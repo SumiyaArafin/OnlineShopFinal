@@ -1,0 +1,110 @@
+﻿@*@model Ecommerce_MVC_Core.ViewModel.UnitViewModel
+    <form asp-action="AddEditUnit" id="frm">
+        <div class="form-horizontal">
+            @await Html.PartialAsync("_ModalHeader", new ModalHeader { Heading = $"{(Model.Id <= 0 ? "Add" : "Edit")} Payment Method" })
+            <hr />
+            <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+
+            <div class="form-group">
+                <label asp-for="Name" class="col-md-3 control-label"></label>
+                <div class="col-md-8">
+                    <input asp-for="Name" class="form-control" autofocus="" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Description" class="col-md-3 control-label"></label>
+                <div class="col-md-8">
+                    <textarea asp-for="Description" class="form-control"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+            </div>
+
+
+
+
+
+        </div>
+        @await Html.PartialAsync("_ModalFooter", new ModalFooter { })
+    </form>
+
+    <script>
+        $.validator.unobtrusive.parse("#frm");
+    </script>*@
+
+
+
+
+@*@model OnlineShopFinal.ViewModel.UnitViewModel
+    @{
+        ViewData["Title"] = "Edit";
+        Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    }
+    <br />
+    <h2 class="text-info">Edit Unit</h2>
+    <form method="post" action="AddEditUnit">
+        <div class="p-4 rounded border">
+            <input type="hidden" asp-for="Id" />
+            <div asp-validation-summary="ModelOnly" class="text-danger">
+
+            </div>
+            <div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="Name"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="Name" class="form-control" />
+                </div>
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+
+
+
+
+
+
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary" asp-route-id="@Model.Id" value="Update" />
+                <a asp-action="Index" class="btn btn-success">Back</a>
+            </div>
+        </div>
+    </form>*@
+
+
+@model OnlineShopFinal.ViewModel.UnitViewModel
+    <form method="post" asp-action="AddEditUnit">
+
+        <div class="modal fade" id="addEmployee">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="addEmployeeLabel">Add Unit</h4>
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span>x</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        @*<form action="Create">*@
+
+                        <div class="form-group">
+                            <label asp-for="Name"></label>
+
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        @*</form>*@
+                    </div>
+
+                    <div class="modal-footer">
+
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-primary" value="Create" />
+                        @*<button type="button" class="btn btn-primary" data-save="modal">Save</button>*@
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </form>

@@ -1,0 +1,42 @@
+﻿@using OnlineShopFinal.Models;
+@using X.PagedList.Mvc.Core
+@model X.PagedList.IPagedList<Product>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+<br />
+<br />
+<div class="row">
+    @foreach (var product in Model)
+    {
+
+        <div class="col-4">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="my-0 font-weight-normal">
+                        <label style="font-Size:23px;color:steelblue">@product.Name</label>
+                    </h5>
+                </div>
+                @*<img src="~/@product.Image" alt="Card Image" class="card-img-top" style="width: 100%; height: 200px;" />*@
+                @*<img src="~/uploads/ProductImages/@product.ProductImages" alt="Card Image" class="card-img-top" style="width: 100%; height: 200px;" />*@
+                <img src="~/@product.Image" alt="Card Image" class="card-img-top" style="width: 100%; height: 200px;" />
+                <div class="card-header">
+                    <div class="d-flex justify-content-between align-content-center">
+                        <div class="btn-group">
+                            <label style="font-Size: 20px;color: #ff6600"><b>Price: @product.AvailablePrice</b></label>
+                        </div>
+                        @*<h4><a asp-controller="Home" asp-action="ProductDetails" asp-route-product="@item.Id">@item.Name</a></h4>*@
+                        <a asp-area="Customer" asp-action="ProductDetails" asp-controller="Home" asp-route-product="@product.Id" class="btn btn-light pull-right btn-outline-info">Details View</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+<div>
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))
+</div>
+

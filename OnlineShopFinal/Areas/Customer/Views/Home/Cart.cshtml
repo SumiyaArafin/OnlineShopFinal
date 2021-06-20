@@ -1,0 +1,247 @@
+﻿@using OnlineShopFinal.ViewModel
+@model List<LineItemViewModel>
+@*@model IEnumerable<OnlineShopFinal.Models.PurchaseOrderLineItem>*@
+
+@{
+    ViewData["Title"] = "Cart";
+}
+<head>
+    <script src="~/cart/js/jquery.min.js"></script>
+
+    <script src="~/js/site.js"></script>
+    <script language="javascript">
+        $(document).ready(function () {
+
+            document.getElementById("sbtotal").readOnly = true;
+            document.getElementById("qt").readOnly = true;
+            document.getElementById("sbtotal").style.color = "#black";
+
+            totalIt();
+
+
+            //1. Increment Decrement
+
+            $('.quantitybtn').on('click', function () {
+                var $row = $(this);
+                var $row0 = $(this).closest("tr");
+
+                var d = parseFloat($row0.find('.Id').val());
+                var oldValue = $row.parent().find('.quantity').val();
+                if ($row.hasClass('inc')) {
+
+                    var newVal = parseFloat(oldValue) ;
+
+                    var $row1 = $(this).closest("tr"),
+                    prce = parseFloat($row1.find('.price').val()),
+                    qnty = parseFloat($row1.find('.quantity').val()),
+                        productId = parseFloat($row1.find('.Id').val()),
+
+
+                        subTotal = (prce * qnty);
+                   
+                    
+                    $row1.find('.subtotal').val(isNaN(subTotal) ? 0 : subTotal);
+
+                   
+                    
+                    $.ajax({
+                        type: 'GET',
+                        url: '/Home/GetData/?id=' + d,
+                        dataType: 'JSON',
+                        success: function (data) {
+
+                            newVal = parseFloat(oldValue) + 1;
+                            $row.parent().find('.quantity').val(newVal);
+                            if (newVal <= data) {
+
+                               
+                               
+                                $row.parent().find('.quantity').val(newVal);
+                                qnty = newVal;
+                                subTotal = (prce * qnty);
+                                 $row1.find('.subtotal').val(subTotal);
+                                console.log(qnty);
+                                totalIt();
+                            }
+                            else {
+                                alert("Not Available!");
+                                newVal = newVal - 1;
+                                $row.parent().find('.quantity').val(newVal);
+
+                                return;
+                            }
+                        },
+                        error: function (err) {
+                            console.log(err)
+                        }
+                    });
+
+
+
+                    totalIt();
+                         $.ajax({
+                    type: "POST",
+                        url: "@Url.Action("Cart")",
+                        data: { number1: qnty, number2: subTotal, number3: productId },
+                        dataType: "text",
+                        success: function (msg) {
+                        console.log();
+            },
+            error: function (req, status, error) {
+                console.log();
+            }
+                         });
+                    
+
+                }
+                else if ($row.hasClass('dec')) {
+                    // Don't allow decrementing below zero
+                    if (oldValue > 0) {
+                        var newVal = parseFloat(oldValue) - 1;
+                        $row.parent().find('.quantity').val(newVal);
+                        var $row1 = $(this).closest("tr"),
+                            prce = parseFloat($row1.find('.price').val()),
+                            qnty = parseFloat($row1.find('.quantity').val()),
+                            productId = parseFloat($row1.find('.Id').val()),
+
+
+                            subTotal = (prce * qnty);
+                        $row1.find('.subtotal').val(isNaN(subTotal) ? 0 : subTotal);
+                        $row1.find('.quantity').val(isNaN(qnty) ? 0 : qnty);
+
+                          $.ajax({
+                    type: "POST",
+                        url: "@Url.Action("Cart")",
+                        data: { number1: qnty, number2: subTotal, number3: productId },
+                        dataType: "text",
+                        success: function (msg) {
+                        console.log(msg);
+            },
+            error: function (req, status, error) {
+                console.log(msg);
+            }
+        });
+
+
+
+
+                        totalIt();
+
+
+                    } else {
+                        newVal = 0;
+                    }
+                }
+                $row.parent().find('.quantity').val(newVal);
+            });
+
+
+            //2. calculation
+            function totalIt() {
+                var total = 0;
+                $(".subtotal").each(function () {
+                    var val = this.value;
+                    total += val == "" || isNaN(val) ? 0 : parseFloat(val);
+                });
+                $('form').find("#Total").val(total);
+            }
+
+
+
+
+        });
+
+
+
+    </script>
+
+</head>
+
+<div class="waraper-style">
+
+    <!-- breadcrumb start -->
+    <div class="breadcrumb-area gray-bg">
+        <div class="container text-center">
+            <div class="breadcrumb-stye ptb-100">
+                <h2 class="page-title">cart page</h2>
+
+            </div>
+        </div>
+    </div>
+    <!-- breadcrumb end -->
+    <!-- shopping-cart-area start -->
+    <div class="small-container cart-page">
+        <h1 class="cart-heading">Cart</h1>
+
+        <form name="cart" method="post" asp-action="Cart">
+            <div class="table-content table-responsive">
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="product-name">remove</th>
+                            <th class="product-price">images</th>
+                            <th class="product-name">Product</th>
+                            <th class="product-price">Quantity</th>
+                            <th class="product-quantity">Price</th>
+                            <th class="product-subtotal">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{ int m = 0;}
+                        @foreach (var purchase in Model)
+                        {
+
+                            <tr name="line_items">
+
+                                <td class="product-remove cart-info"><a asp-area="Customer" asp-action="Remove" asp-controller="Home" asp-route-id="@purchase.Id"><i class="fa fa-times"></i></a></td>
+
+                                <td class="product-thumbnail cart-info">
+
+                                    <a href="#"><img style="height:80px; width:92px;" src="~/@purchase.image" alt=""></a>
+                                </td>
+
+                                <td class="product-name cart-info"><a href="#">@purchase.ProductName</a></td>
+                                <td class="quantityb cart-info">
+                                    <sapn class="dec quantitybtn"> <i class="fa fa-minus"></i> </sapn>&nbsp;
+
+                                    <input type="hidden" class="Id" asp-for="@Model[m].Id" value="@purchase.Id" />
+                                    <input readonly class="quantity" id="qt" asp-for="@Model[m].Quantity" value="@purchase.Quantity" />
+                                    <span class="inc quantitybtn"><i class="fa fa-plus"></i></span>
+                                </td>
+
+                                <td class="cart-info"><input class="price" readonly name="price" value="@purchase.UnitPrice" /></td>
+
+                                <td class="cart-info"><input readonly class="subtotal" id="sbtotal" asp-for="@(Model[m].Subtotal) " value="@purchase.Subtotal" /></td>
+
+                            </tr>
+                            m++;
+                        }
+
+
+
+                    </tbody>
+                </table>
+                <div class="total-price">
+                    <table>
+
+                        <tr>
+                            <td>Total</td>
+                            <td><input id="Total" /></td>
+                        </tr>
+                    </table>
+                </div>
+                <input class="btn" type="submit" value="Proceed to checkout" />
+            </div>
+            
+        </form>
+    </div>
+
+    <!-- shopping-cart-area end -->
+</div>
+
+
+    <script src="~/cart/js/jautocalc.js"></script>
+    <script src="~/cart/js/script.js"></script>
+
+
