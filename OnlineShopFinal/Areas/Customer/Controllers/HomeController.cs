@@ -319,7 +319,7 @@ namespace OnlineShopFinal.Controllers
 
 
 
-
+        [HttpGet("/Home/Cart")]
 
         public ActionResult Cart()
         {
@@ -332,7 +332,7 @@ namespace OnlineShopFinal.Controllers
             
             return View(products);
         }
-        [HttpPost]
+        [HttpPost("/Home/Cart")]
         public ActionResult Cart(List<LineItemViewModel> CartItem , string number1, string number2, string number3)
         {
             int qt = Convert.ToInt32(number1);
